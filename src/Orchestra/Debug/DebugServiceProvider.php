@@ -103,20 +103,21 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerMonologHandler()
     {
-        $this->addSocketHandler();
+        $monolog = $this->app['log']->getMonolog();
 
-        return $this->establishConnection($this->app['log']->getMonolog());
+        $this->addSocketHandler($monolog);
+
+        return $this->establishConnection($monolog);
     }
 
     /**
      * Add the socket handler onto the Monolog stack.
      *
+     * @param  \Monolog\Logger  $monolog
      * @return void
      */
-    protected function addSocketHandler()
+    protected function addSocketHandler($monolog)
     {
-        $monolog = $this->app['log']->getMonolog();
-
         $monolog->pushHandler(new SocketHandler('tcp://127.0.0.1:8337'));
     }
 

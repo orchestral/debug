@@ -13,7 +13,10 @@
 	"autoload": {
 		"psr-0": {
 			"Orchestra\\Debug" : "src/"
-		}
+		},
+		"files": [
+			"src/Orchestra/Debug/helpers.php"
+		]
 	},
 	"require": {
 		"react/socket": "0.3.*"
