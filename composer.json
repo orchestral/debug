@@ -1,0 +1,37 @@
+{
+	"name": "orchestra/debug",
+	"description": "Orchestra Platform 2 Debug Component",
+	"keywords": ["orchestra-platform", "orchestral", "laravel"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mior Muhammad Zaki",
+			"email": "crynobone@gmail.com",
+			"homepage": "https://github.com/crynobone"
+		}
+	],
+	"autoload": {
+		"psr-0": {
+			"Orchestra\\Debug" : "src/"
+		}
+	},
+	"require": {
+		"react/socket": "0.3.*"
+	},
+	"require-dev": {
+		"mockery/mockery": "0.8.0",
+        "monolog/monolog": "1.6.*",
+        "illuminate/console": "4.0.*",
+        "illuminate/container": "4.0.*",
+		"illuminate/support": "4.0.*"
+	},
+	"suggest": {
+		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel 4"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0-dev"
+		}
+	},
+	"minimum-stability": "dev"
+}
