@@ -43,6 +43,8 @@ class DebugCommand extends Command
      */
     public function __construct(SocketServer $socket, LoopInterface $loop)
     {
+        parent::__construct();
+
         $this->socket = $socket;
         $this->loop   = $loop;
     }
