@@ -1,6 +1,6 @@
 {
 	"name": "orchestra/debug",
-	"description": "Orchestra Platform 2 Debug Component",
+	"description": "Artisan Debug Profiler for Laravel 4",
 	"keywords": ["orchestra-platform", "orchestral", "laravel"],
 	"license": "MIT",
 	"authors": [
@@ -29,7 +29,7 @@
 		"illuminate/support": "4.0.*"
 	},
 	"suggest": {
-		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel 4"
+		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel 4.*"
 	},
 	"extra": {
 		"branch-alias": {

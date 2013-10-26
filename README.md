@@ -1,4 +1,4 @@
-Debug Package for Laravel 4
+Artisan Debug Profiler for Laravel 4
 ==============
 
 `Orchestra\Debug` is commandline profiling package for Laravel 4, It was based from Laravel 4.1 commandline profiling tool which was merged with `php artisan tail`.
