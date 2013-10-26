@@ -24,9 +24,9 @@
 	"require-dev": {
 		"mockery/mockery": "0.8.0",
 		"monolog/monolog": "1.6.*",
-		"illuminate/console": "4.0.*",
-		"illuminate/container": "4.0.*",
-		"illuminate/support": "4.0.*"
+		"illuminate/console": "4.1.*",
+		"illuminate/container": "4.1.*",
+		"illuminate/support": "4.1.*"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel 4.*"
