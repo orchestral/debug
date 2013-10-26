@@ -1,10 +1,8 @@
 <?php namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
-use React\Socket\Server as SocketServer;
-use React\EventLoop\Factory as LoopFactory;
 
-class CommandServiceProvider extends ServiceProvider
+class DebugServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -20,14 +18,9 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['command.debug'] = $this->app->share(function () {
-            $loop   = LoopFactory::create();
-            $socket = new SocketServer($loop);
-
-            return new Console\DebugCommand($socket, $loop);
+        $this->app['orchestra.debug'] = $this->app->share(function ($app) {
+            return new Profiler($app);
         });
-
-        $this->commands('command.debug');
     }
 
     /**
@@ -37,6 +30,6 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('command.debug');
+        return array('orchestra.debug');
     }
 }
