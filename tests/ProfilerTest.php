@@ -42,13 +42,17 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $monolog = m::mock('Monolog');
         $events = m::mock('EventDispatcher');
         $request = m::mock('Request');
+        $db = m::mock('Database');
 
         $app->shouldReceive('offsetGet')->twice()->with('log')->andReturn($log)
             ->shouldReceive('offsetGet')->once()->with('events')->andReturn($events)
+            ->shouldReceive('offsetGet')->once()->with('db')->andReturn($db)
             ->shouldReceive('before')->once()->with(m::type('Closure'))
                 ->andReturnUsing(function ($c) use ($request) {
                     $c($request);
                 });
+
+        $db->shouldReceive('prepareBindings')->once()->with(array('2', 'foo'))->andReturn(array('2', 'foo'));
 
         $request->shouldReceive('getMethod')->once()->andReturn('GET')
             ->shouldReceive('path')->once()->andReturn('foobar');

@@ -70,8 +70,10 @@ class Profiler
      */
     protected function registerDatabaseLogger($monolog)
     {
-        $this->app['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($monolog) {
-            $sql = str_replace_array('\?', $bindings, $sql);
+        $db = $this->app['db'];
+
+        $this->app['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
+            $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
 
             $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
         });
