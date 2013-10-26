@@ -1,8 +1,8 @@
-<?php namespace Orchestra\Debug\TestCase;
+<?php namespace Orchestra\Debug\Console\TestCase;
 
 use Mockery as m;
 use Illuminate\Container\Container;
-use Orchestra\Debug\DebugCommand;
+use Orchestra\Debug\Console\DebugCommand;
 
 class DebugCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,7 +31,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Debug\DebugCommand::fire() method.
+     * Test Orchestra\Debug\Console\DebugCommand::fire() method.
      *
      * @test
      */

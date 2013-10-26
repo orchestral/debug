@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use React\Socket\Server as SocketServer;
 use React\EventLoop\Factory as LoopFactory;
 
-class DebugServiceProvider extends ServiceProvider
+class CommandServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -62,7 +62,7 @@ class DebugServiceProvider extends ServiceProvider
             $loop   = LoopFactory::create();
             $socket = new SocketServer($loop);
 
-            return new DebugCommand($socket, $loop);
+            return new Console\DebugCommand($socket, $loop);
         });
 
         $this->commands('command.debug');

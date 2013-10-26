@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Debug;
 
-
 /**
  * Replace a given value in the string sequentially with an array.
  *

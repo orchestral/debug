@@ -2,9 +2,9 @@
 
 use Mockery as m;
 use Illuminate\Container\Container;
-use Orchestra\Debug\DebugServiceProvider;
+use Orchestra\Debug\CommandServiceProvider;
 
-class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
+class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Application instance.
@@ -31,7 +31,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Debug\DebugServiceProvider::register() method.
+     * Test Orchestra\Debug\CommandServiceProvider::register() method.
      *
      * @test
      */
@@ -43,15 +43,15 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('listen')->once()
                 ->with('artisan.start', m::type('Closure'))->andReturn(null);
 
-        $stub = new DebugServiceProvider($app);
+        $stub = new CommandServiceProvider($app);
 
         $stub->register();
 
-        $this->assertInstanceOf('\Orchestra\Debug\DebugCommand', $app['command.debug']);
+        $this->assertInstanceOf('\Orchestra\Debug\Console\DebugCommand', $app['command.debug']);
     }
 
      /**
-     * Test Orchestra\Debug\DebugServiceProvider::boot() method.
+     * Test Orchestra\Debug\CommandServiceProvider::boot() method.
      *
      * @test
      */
@@ -86,13 +86,13 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('addInfo')->once()
                 ->with('<comment>SELECT * FROM foo WHERE id=2 AND name=foo [10ms]</comment>')->andReturn(null);
 
-        $stub = new DebugServiceProvider($app);
+        $stub = new CommandServiceProvider($app);
 
         $stub->boot();
     }
 
      /**
-     * Test Orchestra\Debug\DebugServiceProvider::register() method when
+     * Test Orchestra\Debug\CommandServiceProvider::register() method when
      * unable to establish connection to monolog.
      *
      * @test
@@ -108,19 +108,19 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('addInfo')->once()->andThrow('\Exception')
             ->shouldReceive('popHandler')->once()->andReturn(null);
 
-        $stub = new DebugServiceProvider($app);
+        $stub = new CommandServiceProvider($app);
 
         $stub->boot();
     }
 
     /**
-     * Test Orchestra\Debug\DebugServiceProvider::provides() method.
+     * Test Orchestra\Debug\CommandServiceProvider::provides() method.
      *
      * @test
      */
     public function testProvidesMethod()
     {
-        $stub = new DebugServiceProvider($this->app);
+        $stub = new CommandServiceProvider($this->app);
 
         $this->assertEquals(array('command.debug'), $stub->provides());
     }

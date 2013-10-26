@@ -1,9 +1,10 @@
-<?php namespace Orchestra\Debug;
+<?php namespace Orchestra\Debug\Console;
 
 use Closure;
 use Illuminate\Console\Command;
 use React\Socket\Server as SocketServer;
 use React\EventLoop\LoopInterface;
+use Orchestra\Debug\str_replace_array;
 
 class DebugCommand extends Command
 {

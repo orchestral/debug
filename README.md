@@ -26,7 +26,7 @@ Next add the following service provider in `app/config/app.php`.
 
     // ...
     
-    'Orchestra\Debug\DebugServiceProvider',
+    'Orchestra\Debug\CommandServiceProvider',
  ),
  ```
  
