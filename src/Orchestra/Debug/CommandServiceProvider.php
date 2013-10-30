@@ -20,7 +20,7 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['command.debug'] = $this->app->share(function () {
+        $this->app->bindShared('command.debug', function () {
             $loop   = LoopFactory::create();
             $socket = new SocketServer($loop);
 

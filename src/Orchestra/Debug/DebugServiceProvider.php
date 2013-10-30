@@ -18,7 +18,7 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['orchestra.debug'] = $this->app->share(function ($app) {
+        $this->app->bindShared('orchestra.debug', function ($app) {
             return new Profiler($app);
         });
     }
