@@ -2,25 +2,36 @@
 
 use Exception;
 use Monolog\Handler\SocketHandler;
+use Monolog\Logger;
 use Illuminate\Container\Container;
+use Illuminate\Events\Dispatcher;
 
 class Profiler
 {
     /**
-     * Application instance.
+     * Container instance.
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app;
+    protected $container;
+
+    /**
+     * Monolog instance.
+     *
+     * @var \Monolog\Logger
+     */
+    protected $monolog;
 
     /**
      * Construct a new instance.
      *
-     * @param  \Illuminate\Container\Container  $app
+     * @param  \Illuminate\Container\Container  $container
+     * @param  \Monolog\Logger                  $monolog
      */
-    public function __construct(Container $app)
+    public function __construct(Container $container, Logger $monolog)
     {
-        $this->app = $app;
+        $this->container = $container;
+        $this->monolog   = $monolog;
     }
 
     /**
@@ -42,41 +53,10 @@ class Profiler
      */
     protected function registerEvents()
     {
-        $monolog = $this->app['log']->getMonolog();
-
-        foreach (array('Request', 'Database') as $event) {
-            $this->{"register{$event}Logger"}($monolog);
+        if (! is_null($dispatcher = $this->getEventDispatcher()))
+        {
+            $dispatcher->fire('orchestra.debug: attaching', array($this->monolog));
         }
-    }
-
-    /**
-     * Register the request logger event.
-     *
-     * @param  \Monolog\Logger  $monolog
-     * @return void
-     */
-    protected function registerRequestLogger($monolog)
-    {
-        $this->app->before(function ($request) use ($monolog) {
-            $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
-        });
-    }
-
-    /**
-     * Register the database query listener.
-     *
-     * @param  \Monolog\Logger  $monolog
-     * @return void
-     */
-    protected function registerDatabaseLogger($monolog)
-    {
-        $db = $this->app['db'];
-
-        $this->app['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
-            $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
-
-            $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
-        });
     }
 
     /**
@@ -86,40 +66,69 @@ class Profiler
      */
     protected function registerMonologHandler()
     {
-        $monolog = $this->app['log']->getMonolog();
+        $this->addSocketHandler();
 
-        $this->addSocketHandler($monolog);
-
-        return $this->establishConnection($monolog);
+        return $this->establishConnection();
     }
 
     /**
      * Add the socket handler onto the Monolog stack.
      *
-     * @param  \Monolog\Logger  $monolog
      * @return void
      */
-    protected function addSocketHandler($monolog)
+    protected function addSocketHandler()
     {
-        $monolog->pushHandler(new SocketHandler('tcp://127.0.0.1:8337'));
+        $this->monolog->pushHandler(new SocketHandler('tcp://127.0.0.1:8337'));
     }
 
     /**
      * Attempt to establish the socket handler connection.
      *
-     * @param  \Monolog\Logger  $monolog
      * @return bool
      */
-    protected function establishConnection($monolog)
+    protected function establishConnection()
     {
         try {
-            $monolog->addInfo('Debug client connecting...');
+            $this->monolog->addInfo('Debug client connecting...');
         } catch (Exception $e) {
-            $monolog->popHandler();
+            $this->monolog->popHandler();
 
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Set the event dispatcher instance to be used by connections.
+     *
+     * @param \Illuminate\Events\Dispatcher $dispatcher
+     * @return void
+     */
+    public function setEventDispatcher(Dispatcher $dispatcher)
+    {
+        $this->container->instance('events', $dispatcher);
+    }
+
+    /**
+     * Get the current event dispatcher instance.
+     *
+     * @return \Illuminate\Events\Dispatcher
+     */
+    public function getEventDispatcher()
+    {
+        if ($this->container->bound('events')) {
+            return $this->container['events'];
+        }
+    }
+
+    /**
+     * Get monolog instance.
+     *
+     * @return \Monolog\Logger
+     */
+    public function getMonolog()
+    {
+        return $this->monolog;
     }
 }

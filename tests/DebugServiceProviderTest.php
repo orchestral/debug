@@ -38,7 +38,27 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function testRegisterMethod()
     {
         $app  = $this->app;
+        $monolog = m::mock('\Monolog\Logger');
+        $app['db'] = $db = m::mock('DB');
+        $app['events'] = $events = m::mock('Illuminate\Events\Dispatcher');
+        $app['log'] = $logger = m::mock('Logger');
+        $app['request'] = $request = m::mock('Illuminate\Http\Request');
         $stub = new DebugServiceProvider($app);
+
+        $db->shouldReceive('prepareBindings')->once()->with(array(1))->andReturn(array(1));
+        $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
+                ->andReturnUsing(function ($n, $c) use ($monolog) {
+                    $c("SELECT * FROM `foo` WHERE id=?", array(1), 1);
+                })
+            ->shouldReceive('listen')->once()->with('orchestra.debug: attaching', m::type('Closure'))
+                ->andReturnUsing(function ($n, $c) use ($monolog) {
+                    $c($monolog);
+                });
+        $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
+        $monolog->shouldReceive('addInfo')->once()->with('<info>get foobar</info>')
+            ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>');
+        $request->shouldReceive('getMethod')->once()->andReturn('GET')
+            ->shouldReceive('path')->once()->andReturn('foobar');
 
         $stub->register();
 

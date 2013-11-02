@@ -19,6 +19,7 @@
 		]
 	},
 	"require": {
+		"php": ">=5.3.3",
 		"react/socket": "0.3.*"
 	},
 	"require-dev": {
@@ -26,6 +27,7 @@
 		"monolog/monolog": "1.6.*",
 		"illuminate/console": "4.1.*",
 		"illuminate/container": "4.1.*",
+		"illuminate/events": "4.1.*",
 		"illuminate/support": "4.1.*"
 	},
 	"suggest": {
