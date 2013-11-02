@@ -60,36 +60,6 @@ class Profiler
     }
 
     /**
-     * Register the request logger event.
-     *
-     * @param  \Monolog\Logger  $monolog
-     * @return void
-     */
-    protected function registerRequestLogger($monolog)
-    {
-        $this->container->before(function ($request) use ($monolog) {
-            $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
-        });
-    }
-
-    /**
-     * Register the database query listener.
-     *
-     * @param  \Monolog\Logger  $monolog
-     * @return void
-     */
-    protected function registerDatabaseLogger($monolog)
-    {
-        $db = $this->container['db'];
-
-        $this->container['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
-            $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
-
-            $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
-        });
-    }
-
-    /**
      * Register Monolog handler and establish the connection.
      *
      * @return bool
