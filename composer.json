@@ -27,6 +27,7 @@
 		"monolog/monolog": "1.6.*",
 		"illuminate/console": "4.0.*",
 		"illuminate/container": "4.0.*",
+		"illuminate/events": "4.0.1",
 		"illuminate/support": "4.0.*"
 	},
 	"suggest": {

@@ -37,42 +37,26 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
      */
     public function testBootMethod()
     {
-        $app = m::mock('\Illuminate\Container\Container');
-        $log = m::mock('Logger');
-        $monolog = m::mock('Monolog');
-        $events = m::mock('EventDispatcher');
-        $request = m::mock('Request');
-        $db = m::mock('Database');
+        $app     = new Container;
+        $monolog = m::mock('\Monolog\Logger');
+        $events  = m::mock('\Illuminate\Events\Dispatcher');
 
-        $app->shouldReceive('offsetGet')->twice()->with('log')->andReturn($log)
-            ->shouldReceive('offsetGet')->once()->with('events')->andReturn($events)
-            ->shouldReceive('offsetGet')->once()->with('db')->andReturn($db)
-            ->shouldReceive('before')->once()->with(m::type('Closure'))
-                ->andReturnUsing(function ($c) use ($request) {
-                    $c($request);
-                });
-
-        $db->shouldReceive('prepareBindings')->once()->with(array('2', 'foo'))->andReturn(array('2', 'foo'));
-
-        $request->shouldReceive('getMethod')->once()->andReturn('GET')
-            ->shouldReceive('path')->once()->andReturn('foobar');
-
-        $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
-            ->andReturnUsing(function ($n, $c) use ($monolog) {
-                $c('SELECT * FROM foo WHERE id=? AND name=?', array('2', 'foo'), 10);
-            });
-
-        $log->shouldReceive('getMonolog')->twice()->andReturn($monolog);
+        $events->shouldReceive('fire')->once()->with('orchestra.debug: attaching', m::type('Array'));
 
         $monolog->shouldReceive('pushHandler')->once()->andReturn(null)
-            ->shouldReceive('addInfo')->once()->once()->with('Debug client connecting...')->andReturn(null)
-            ->shouldReceive('addInfo')->once()->with('<info>get foobar</info>')->andReturn(null)
-            ->shouldReceive('addInfo')->once()
-                ->with('<comment>SELECT * FROM foo WHERE id=2 AND name=foo [10ms]</comment>')->andReturn(null);
+            ->shouldReceive('addInfo')->once()->once()->with('Debug client connecting...')->andReturn(null);
 
-        $stub = new Profiler($app);
+        $stub = new Profiler($app, $monolog);
+
+        $this->assertNull($stub->getEventDispatcher());
+
+        $stub->setEventDispatcher($events);
+
+        $this->assertEquals($events, $stub->getEventDispatcher());
 
         $stub->attachDebugger();
+
+        $this->assertEquals($monolog, $stub->getMonolog());
     }
 
      /**
@@ -84,15 +68,13 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
     public function testRegisterMethodWhenMonologIsNotConnected()
     {
         $app = $this->app;
-        $app['log'] = $log = m::mock('Logger');
-        $monolog = m::mock('Monolog');
+        $monolog = m::mock('\Monolog\Logger');
 
-        $log->shouldReceive('getMonolog')->once()->andReturn($monolog);
         $monolog->shouldReceive('pushHandler')->once()->andReturn(null)
             ->shouldReceive('addInfo')->once()->andThrow('\Exception')
             ->shouldReceive('popHandler')->once()->andReturn(null);
 
-        $stub = new Profiler($app);
+        $stub = new Profiler($app, $monolog);
 
         $stub->attachDebugger();
     }
