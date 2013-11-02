@@ -62,7 +62,7 @@ class DebugServiceProvider extends ServiceProvider
     * @param  \Monolog\Logger  $monolog
     * @return void
     */
-    protected function registerRequestLogger($monolog)
+    public function registerRequestLogger($monolog)
     {
         $request = $this->app['request'];
 
@@ -75,7 +75,7 @@ class DebugServiceProvider extends ServiceProvider
      * @param  \Monolog\Logger  $monolog
      * @return void
      */
-    protected function registerDatabaseLogger($monolog)
+    public function registerDatabaseLogger($monolog)
     {
         $db = $this->app['db'];
 
