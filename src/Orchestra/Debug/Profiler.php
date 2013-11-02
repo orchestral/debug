@@ -53,8 +53,7 @@ class Profiler
      */
     protected function registerEvents()
     {
-        if (! is_null($dispatcher = $this->getEventDispatcher()))
-        {
+        if (! is_null($dispatcher = $this->getEventDispatcher())) {
             $dispatcher->fire('orchestra.debug: attaching', array($this->monolog));
         }
     }

@@ -45,18 +45,44 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerEvents()
     {
+        $me = $this;
         $events  = $this->app['events'];
-        $request = $this->app['request'];
         $db      = $this->app['db'];
 
-        $events->listen('orchestra.debug: attaching', function ($monolog) use ($db, $events, $request) {
-            $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
+        $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) use ($me) {
+            foreach (array('Request', 'Database') as $event) {
+                call_user_func(array($me, "register{$event}Logger"), $monolog);
+            }
+        });
+    }
 
-            $events->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
-                $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
+    /**
+    * Register the request logger event.
+    *
+    * @param  \Monolog\Logger  $monolog
+    * @return void
+    */
+    protected function registerRequestLogger($monolog)
+    {
+        $request = $this->app['request'];
 
-                $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
-            });
+        $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
+    }
+
+    /**
+     * Register the database query listener.
+     *
+     * @param  \Monolog\Logger  $monolog
+     * @return void
+     */
+    protected function registerDatabaseLogger($monolog)
+    {
+        $db = $this->app['db'];
+
+        $this->app['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
+            $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
+
+            $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
         });
     }
 
