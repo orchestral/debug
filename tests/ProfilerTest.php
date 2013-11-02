@@ -35,7 +35,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function testBootMethod()
+    public function testAttachDebuggerMethod()
     {
         $app     = new Container;
         $monolog = m::mock('\Monolog\Logger');
@@ -44,7 +44,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $events->shouldReceive('fire')->once()->with('orchestra.debug: attaching', m::type('Array'));
 
         $monolog->shouldReceive('pushHandler')->once()->andReturn(null)
-            ->shouldReceive('addInfo')->once()->once()->with('Debug client connecting...')->andReturn(null);
+            ->shouldReceive('addInfo')->once()->with('Debug client connecting...')->andReturn(null);
 
         $stub = new Profiler($app, $monolog);
 
@@ -77,5 +77,26 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $stub = new Profiler($app, $monolog);
 
         $stub->attachDebugger();
+    }
+
+    /**
+     * Test Orchestra\Debug\Profiler::extend() method.
+     *
+     * @test
+     */
+    public function testExtendMethod()
+    {
+        $app     = new Container;
+        $monolog = m::mock('\Monolog\Logger');
+
+        $monolog->shouldReceive('addInfo')->once()->with('Called!')->andReturn(null);
+
+        $stub = new Profiler($app, $monolog);
+
+        $callback = function ($monolog) {
+            $monolog->addInfo('Called!');
+        };
+
+        $stub->extend($callback);
     }
 }

@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Debug;
 
+use Closure;
 use Exception;
 use Monolog\Handler\SocketHandler;
 use Monolog\Logger;
@@ -44,6 +45,17 @@ class Profiler
         if ($this->registerMonologHandler()) {
             $this->registerEvents();
         }
+    }
+
+    /**
+     * Extend the profiler.
+     *
+     * @param  \Closure    $callback
+     * @return void
+     */
+    public function extend(Closure $callback)
+    {
+        return call_user_func($callback, $this->monolog);
     }
 
     /**
