@@ -46,8 +46,6 @@ class DebugServiceProvider extends ServiceProvider
     protected function registerEvents()
     {
         $me = $this;
-        $events  = $this->app['events'];
-        $db      = $this->app['db'];
 
         $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) use ($me) {
             foreach (array('Request', 'Database') as $event) {
