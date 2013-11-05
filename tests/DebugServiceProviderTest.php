@@ -37,13 +37,19 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app  = $this->app;
+        $app = m::mock('\Illuminate\Container\Container[error]');
         $monolog = m::mock('\Monolog\Logger');
         $app['db'] = $db = m::mock('DB');
         $app['events'] = $events = m::mock('Illuminate\Events\Dispatcher');
         $app['log'] = $logger = m::mock('Logger');
         $app['request'] = $request = m::mock('Illuminate\Http\Request');
         $stub = new DebugServiceProvider($app);
+
+        $app->shouldReceive('error')->once()->with(m::type('Closure'))
+                ->andReturnUsing(function ($c) {
+                    $e = m::mock('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+                    $c($e);
+                });
 
         $db->shouldReceive('prepareBindings')->once()->with(array(1))->andReturn(array(1));
         $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
@@ -55,10 +61,11 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                     $c($monolog);
                 });
         $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
-        $monolog->shouldReceive('addInfo')->once()->with('<info>get foobar</info>')
+        $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET foobar</info>')
+            ->shouldReceive('addInfo')->once()->with('<error>Request: GET foobar</error>')
             ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>');
-        $request->shouldReceive('getMethod')->once()->andReturn('GET')
-            ->shouldReceive('path')->once()->andReturn('foobar');
+        $request->shouldReceive('getMethod')->twice()->andReturn('GET')
+            ->shouldReceive('path')->twice()->andReturn('foobar');
 
         $stub->register();
 
