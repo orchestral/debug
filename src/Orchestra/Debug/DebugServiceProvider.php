@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Debug;
 
+use Exception;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DebugServiceProvider extends ServiceProvider
 {
@@ -80,10 +80,10 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function registerNotFoundExceptionLogger($monolog)
     {
-        $request = $this->app['request'];
+        $route = $this->getCurrentRoute();
 
-        $this->app->error(function (NotFoundHttpException $e) use ($monolog, $request) {
-            $monolog->addInfo('<error>Request: '.strtoupper($request->getMethod()).' '.$request->path().'</error>');
+        $this->app->error(function (Exception $e) use ($monolog, $route) {
+            $monolog->addInfo('<comment>Exception <error>'.get_class($e).'</error> on '.$route.'</comment>');
         });
     }
 
@@ -95,9 +95,19 @@ class DebugServiceProvider extends ServiceProvider
     */
     public function registerRequestLogger($monolog)
     {
+        $monolog->addInfo('<info>Request: '.$this->getCurrentRoute().'</info>');
+    }
+
+    /**
+     * Get current route.
+     *
+     * @return string
+     */
+    protected function getCurrentRoute()
+    {
         $request = $this->app['request'];
 
-        $monolog->addInfo('<info>Request: '.strtoupper($request->getMethod()).' '.$request->path().'</info>');
+        return strtoupper($request->getMethod()).' '.$request->path();
     }
 
     /**
