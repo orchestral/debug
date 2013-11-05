@@ -83,7 +83,7 @@ class DebugServiceProvider extends ServiceProvider
         $request = $this->app['request'];
 
         $this->app->error(function (NotFoundHttpException $e) use ($monolog, $request) {
-            $monolog->addInfo('<error>'.strtolower($request->getMethod()).' '.$request->path().'</error>');
+            $monolog->addInfo('<error>Request: '.strtoupper($request->getMethod()).' '.$request->path().'</error>');
         });
     }
 
@@ -97,7 +97,7 @@ class DebugServiceProvider extends ServiceProvider
     {
         $request = $this->app['request'];
 
-        $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
+        $monolog->addInfo('<info>Request: '.strtoupper($request->getMethod()).' '.$request->path().'</info>');
     }
 
     /**
