@@ -47,7 +47,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $app->shouldReceive('error')->once()->with(m::type('Closure'))
                 ->andReturnUsing(function ($c) {
-                    $e = m::mock('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
+                    $e = new \RuntimeException;
                     $c($e);
                 });
 
@@ -62,7 +62,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                 });
         $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
         $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET foobar</info>')
-            ->shouldReceive('addInfo')->once()->with('<error>Request: GET foobar</error>')
+            ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET foobar</comment>')
             ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>');
         $request->shouldReceive('getMethod')->twice()->andReturn('GET')
             ->shouldReceive('path')->twice()->andReturn('foobar');
