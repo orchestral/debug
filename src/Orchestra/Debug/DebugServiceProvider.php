@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DebugServiceProvider extends ServiceProvider
 {
@@ -48,23 +49,10 @@ class DebugServiceProvider extends ServiceProvider
         $me = $this;
 
         $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) use ($me) {
-            foreach (array('Request', 'Database') as $event) {
+            foreach (array('Database', 'NotFoundException', 'Request') as $event) {
                 call_user_func(array($me, "register{$event}Logger"), $monolog);
             }
         });
-    }
-
-    /**
-    * Register the request logger event.
-    *
-    * @param  \Monolog\Logger  $monolog
-    * @return void
-    */
-    public function registerRequestLogger($monolog)
-    {
-        $request = $this->app['request'];
-
-        $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
     }
 
     /**
@@ -82,6 +70,34 @@ class DebugServiceProvider extends ServiceProvider
 
             $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
         });
+    }
+
+    /**
+     * Register the not found exception logger event.
+     *
+     * @param  \Monolog\Logger  $monolog
+     * @return void
+     */
+    public function registerNotFoundExceptionLogger($monolog)
+    {
+        $request = $this->app['request'];
+
+        $this->app->error(function (NotFoundHttpException $e) use ($monolog, $request) {
+            $monolog->addInfo('<error>'.strtolower($request->getMethod()).' '.$request->path().'</error>');
+        });
+    }
+
+    /**
+    * Register the request logger event.
+    *
+    * @param  \Monolog\Logger  $monolog
+    * @return void
+    */
+    public function registerRequestLogger($monolog)
+    {
+        $request = $this->app['request'];
+
+        $monolog->addInfo('<info>'.strtolower($request->getMethod()).' '.$request->path().'</info>');
     }
 
     /**
