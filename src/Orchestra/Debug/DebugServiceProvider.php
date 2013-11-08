@@ -2,6 +2,7 @@
 
 use Exception;
 use Illuminate\Support\ServiceProvider;
+use Monolog\Logger;
 
 class DebugServiceProvider extends ServiceProvider
 {
@@ -61,7 +62,7 @@ class DebugServiceProvider extends ServiceProvider
      * @param  \Monolog\Logger  $monolog
      * @return void
      */
-    public function registerDatabaseLogger($monolog)
+    public function registerDatabaseLogger(Logger $monolog)
     {
         $db = $this->app['db'];
 
@@ -78,7 +79,7 @@ class DebugServiceProvider extends ServiceProvider
      * @param  \Monolog\Logger  $monolog
      * @return void
      */
-    public function registerNotFoundExceptionLogger($monolog)
+    public function registerNotFoundExceptionLogger(Logger $monolog)
     {
         $route = $this->getCurrentRoute();
 
@@ -93,7 +94,7 @@ class DebugServiceProvider extends ServiceProvider
     * @param  \Monolog\Logger  $monolog
     * @return void
     */
-    public function registerRequestLogger($monolog)
+    public function registerRequestLogger(Logger $monolog)
     {
         $monolog->addInfo('<info>Request: '.$this->getCurrentRoute().'</info>');
     }
