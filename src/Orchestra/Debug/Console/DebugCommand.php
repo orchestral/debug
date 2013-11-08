@@ -89,7 +89,7 @@ class DebugCommand extends Command
      * @param  \Closure  $callback
      * @return void
      */
-    protected function onIncoming($socket, Closure $callback)
+    protected function onIncoming(SocketServer $socket, Closure $callback)
     {
         $socket->on('connection', function ($conn) use ($callback) {
             $conn->on('data', $callback);

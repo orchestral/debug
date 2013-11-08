@@ -1,0 +1,9 @@
+code-browser/*
+docs/*
+coverage/*
+logs/*
+pdepend/*
+!code-browser/.gitignore
+!coverage/.gitignore
+!logs/.gitignore
+!pdepend/.gitignore
