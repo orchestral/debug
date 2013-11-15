@@ -107,8 +107,13 @@ class DebugServiceProvider extends ServiceProvider
     protected function getCurrentRoute()
     {
         $request = $this->app['request'];
+        $method  = strtoupper($request->getMethod());
+        $path    = ltrim($request->path(), '/');
+        $host    = $request->getHost();
 
-        return strtoupper($request->getMethod()).' '.$request->path();
+        ! is_null($host) and $host = rtrim($host, '/');
+
+        return "{$method} {$host}/{$path}";
     }
 
     /**

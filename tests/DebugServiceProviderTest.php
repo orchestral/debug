@@ -61,10 +61,11 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                     $c($monolog);
                 });
         $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
-        $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET foobar</info>')
-            ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET foobar</comment>')
+        $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET /foobar</info>')
+            ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET /foobar</comment>')
             ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>');
         $request->shouldReceive('getMethod')->twice()->andReturn('GET')
+            ->shouldReceive('getHost')->twice()->andReturn(null)
             ->shouldReceive('path')->twice()->andReturn('foobar');
 
         $stub->register();
