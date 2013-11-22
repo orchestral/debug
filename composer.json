@@ -24,7 +24,7 @@
 	},
 	"require-dev": {
 		"mockery/mockery": "0.8.0",
-		"monolog/monolog": "1.6.*",
+		"monolog/monolog": "1.*",
 		"illuminate/console": "4.0.*",
 		"illuminate/container": "4.0.*",
 		"illuminate/events": "4.0.*",
