@@ -43,6 +43,15 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
         $app['events'] = $events = m::mock('Illuminate\Events\Dispatcher');
         $app['log'] = $logger = m::mock('Logger');
         $app['request'] = $request = m::mock('Illuminate\Http\Request');
+
+        $queryLog = array(
+            array(
+                'query' => "SELECT * FROM `users` WHERE id=?",
+                'bindings' => array(10),
+                'time' => 3,
+            ),
+        );
+
         $stub = new DebugServiceProvider($app);
 
         $app->shouldReceive('error')->once()->with(m::type('Closure'))
@@ -51,7 +60,10 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                     $c($e);
                 });
 
-        $db->shouldReceive('prepareBindings')->once()->with(array(1))->andReturn(array(1));
+        $db->shouldReceive('prepareBindings')->once()->with(array(1))->andReturn(array(1))
+            ->shouldReceive('prepareBindings')->once()->with(array(10))->andReturn(array(10))
+            ->shouldReceive('getQueryLog')->once()->andReturn($queryLog);
+
         $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
                 ->andReturnUsing(function ($n, $c) use ($monolog) {
                     $c("SELECT * FROM `foo` WHERE id=?", array(1), 1);
@@ -60,10 +72,14 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                 ->andReturnUsing(function ($n, $c) use ($monolog) {
                     $c($monolog);
                 });
+
         $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
+
         $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET foobar</info>')
             ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET foobar</comment>')
-            ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>');
+            ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>')
+            ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `users` WHERE id=10 [3ms]</comment>');
+
         $request->shouldReceive('getMethod')->twice()->andReturn('GET')
             ->shouldReceive('path')->twice()->andReturn('foobar');
 

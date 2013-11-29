@@ -66,11 +66,16 @@ class DebugServiceProvider extends ServiceProvider
     {
         $db = $this->app['db'];
 
-        $this->app['events']->listen('illuminate.query', function ($sql, $bindings, $time) use ($db, $monolog) {
+        $callback = function ($sql, $bindings, $time) use ($db, $monolog) {
             $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
-
             $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
-        });
+        };
+
+        foreach ($db->getQueryLog() as $query) {
+            call_user_func($callback, $query['query'], $query['bindings'], $query['time']);
+        }
+
+        $this->app['events']->listen('illuminate.query', $callback);
     }
 
     /**
