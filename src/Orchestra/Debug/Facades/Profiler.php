@@ -1,16 +1,8 @@
 <?php namespace Orchestra\Debug\Facades;
 
-use Illuminate\Support\Facades\Facade;
+use Orchestra\Support\Facades\Profiler as Facade;
 
 class Profiler extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return 'orchestra.debug';
-    }
+    //
 }
