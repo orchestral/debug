@@ -29,17 +29,17 @@ Next add the following service provider in `app/config/app.php`.
 'providers' => array(
 
 	// ...
-    
+
 	'Orchestra\Debug\DebugServiceProvider',
 
 	'Orchestra\Debug\CommandServiceProvider',
 ),
 ```
- 
+
 ### Adding an Alias
- 
+
 You could also create an alias for `Orchestra\Debug\Facades\Profiler` in `app/config/app.php`.
- 
+
 ```php
 'alias' => array(
 	'Profiler' => 'Orchestra\Debug\Facades\Profiler',
@@ -64,6 +64,7 @@ To view the profiler, run the following command in your terminal:
 php artisan debug
 ```
 
+## Resources
 
- 
- 
+* [Documentation](http://orchestraplatform.com/docs/latest/components/debug)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v2-1)

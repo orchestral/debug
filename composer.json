@@ -1,8 +1,9 @@
 {
 	"name": "orchestra/debug",
 	"description": "Artisan Debug Profiler for Laravel 4",
-	"keywords": ["orchestra-platform", "orchestral", "laravel"],
 	"license": "MIT",
+	"homepage": "http://orchestraplatform.com/docs/latest/components/debug/",
+	"keywords": ["orchestra-platform", "orchestral", "laravel"],
 	"authors": [
 		{
 			"name": "Mior Muhammad Zaki",
