@@ -3,6 +3,12 @@ title: Artisan Debug Change Log
 
 ---
 
+## Version 2.1 {#v2-1}
+
+### v2.1.0 {#v2-1-0}
+
+* Add support for Orchestra Platform 2.1 and Laravel 4.1.
+
 ## Version 2.0 {#v2-0}
 
 ### v2.0.0 {#v2-0-0}
