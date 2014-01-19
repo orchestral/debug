@@ -116,7 +116,7 @@ class DebugServiceProvider extends ServiceProvider
         $path    = ltrim($request->path(), '/');
         $host    = $request->getHost();
 
-        ! is_null($host) and $host = rtrim($host, '/');
+        ! is_null($host) && $host = rtrim($host, '/');
 
         return "{$method} {$host}/{$path}";
     }
