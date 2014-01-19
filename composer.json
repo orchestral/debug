@@ -14,10 +14,7 @@
 	"autoload": {
 		"psr-0": {
 			"Orchestra\\Debug" : "src/"
-		},
-		"files": [
-			"src/Orchestra/Debug/helpers.php"
-		]
+		}
 	},
 	"require": {
 		"php": ">=5.4.0",
