@@ -5,7 +5,7 @@ Artisan Debug Profiler for Laravel 4
 
 [![Latest Stable Version](https://poser.pugx.org/orchestra/debug/v/stable.png)](https://packagist.org/packages/orchestra/debug) 
 [![Total Downloads](https://poser.pugx.org/orchestra/debug/downloads.png)](https://packagist.org/packages/orchestra/debug) 
-[![Build Status](https://travis-ci.org/orchestral/debug.png?branch=2.2)](https://travis-ci.org/orchestral/debug) 
+[![Build Status](https://travis-ci.org/orchestral/debug.svg?branch=2.2)](https://travis-ci.org/orchestral/debug) 
 [![Coverage Status](https://coveralls.io/repos/orchestral/debug/badge.png?branch=2.2)](https://coveralls.io/r/orchestral/debug?branch=2.2) 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/debug/badges/quality-score.png?s=126736312eb50230c0a9216f032def44610f1647)](https://scrutinizer-ci.com/g/orchestral/debug/) 
 
