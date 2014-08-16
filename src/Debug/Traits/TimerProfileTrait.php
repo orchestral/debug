@@ -1,7 +1,5 @@
 <?php namespace Orchestra\Debug\Traits;
 
-use InvalidArgumentException;
-use Illuminate\Support\Arr;
 use Orchestra\Support\Str;
 
 trait TimerProfileTrait
