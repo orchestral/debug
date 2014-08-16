@@ -20,7 +20,7 @@ trait TimerProfileTrait
      */
     public function time($name, $message = null)
     {
-        $id = isset($this->timers[$id]) ? uniqid($name) : $name;
+        $id = isset($this->timers[$name]) ? uniqid($name) : $name;
 
         $this->timers[$id] = [
             'name'    => $name,
