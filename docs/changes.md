@@ -5,9 +5,10 @@ title: Artisan Debug Change Log
 
 ## Version 2.2 {#v2-2}
 
-### v2.2.1@dev {#v2-2-1}
+### v2.2.1 {#v2-2-1}
 
 * Add `Orchestra\Debug\Listener`, reduce complexity on `Orchestra\Debug\Profiler`.
+* Add `Orchestra\Debug\Profiler::time()` and `Orchestra\Debug\Profiler::timeEnd()` using `Orchestra\Debug\Traits\TimerProfileTrait`.
 
 ### v2.2.0 {#v2-2-0}
 
