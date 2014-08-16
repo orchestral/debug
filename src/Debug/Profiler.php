@@ -1,12 +1,12 @@
 <?php namespace Orchestra\Debug;
 
 use Closure;
-use Monolog\Logger;
 use Orchestra\Debug\Traits\MonologTrait;
+use Orchestra\Debug\Traits\TimerProfileTrait;
 
 class Profiler
 {
-    use MonologTrait;
+    use MonologTrait, TimerProfileTrait;
 
     /**
      * Listener instance.
