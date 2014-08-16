@@ -37,6 +37,6 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('command.debug');
+        return ['command.debug'];
     }
 }

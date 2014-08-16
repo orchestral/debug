@@ -47,11 +47,9 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerEvents()
     {
-        $me = $this;
-
-        $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) use ($me) {
-            foreach (array('Database', 'NotFoundException', 'Request') as $event) {
-                call_user_func(array($me, "register{$event}Logger"), $monolog);
+        $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) {
+            foreach (['Database', 'NotFoundException', 'Request'] as $event) {
+                call_user_func([$this, "register{$event}Logger"], $monolog);
             }
         });
     }
@@ -128,6 +126,6 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('orchestra.debug');
+        return ['orchestra.debug'];
     }
 }
