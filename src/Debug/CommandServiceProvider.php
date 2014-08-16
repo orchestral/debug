@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Debug\Console\DebugCommand;
 use React\Socket\Server as SocketServer;
 use React\EventLoop\Factory as LoopFactory;
 
@@ -24,7 +25,7 @@ class CommandServiceProvider extends ServiceProvider
             $loop   = LoopFactory::create();
             $socket = new SocketServer($loop);
 
-            return new Console\DebugCommand($socket, $loop);
+            return new DebugCommand($socket, $loop);
         });
 
         $this->commands('command.debug');
@@ -37,6 +38,6 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('command.debug');
+        return ['command.debug'];
     }
 }

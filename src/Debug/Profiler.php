@@ -1,145 +1,60 @@
 <?php namespace Orchestra\Debug;
 
 use Closure;
-use Exception;
-use Monolog\Handler\SocketHandler;
-use Monolog\Logger;
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
+use Orchestra\Debug\Traits\MonologTrait;
+use Orchestra\Debug\Traits\TimerProfileTrait;
 
 class Profiler
 {
-    /**
-     * Container instance.
-     *
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
+    use MonologTrait, TimerProfileTrait;
 
     /**
-     * Monolog instance.
+     * Listener instance.
      *
-     * @var \Monolog\Logger
+     * @var \Orchestra\Debug\Listener
      */
-    protected $monolog;
+    protected $listener;
 
     /**
      * Construct a new instance.
      *
-     * @param  \Illuminate\Container\Container  $container
-     * @param  \Monolog\Logger                  $monolog
+     * @param  \Orchestra\Debug\Listener    $listener
      */
-    public function __construct(Container $container, Logger $monolog)
+    public function __construct(Listener $listener)
     {
-        $this->container = $container;
-        $this->monolog   = $monolog;
-    }
-
-    /**
-     * Attach the debugger.
-     *
-     * @return Profiler
-     */
-    public function attachDebugger()
-    {
-        if ($this->registerMonologHandler()) {
-            $this->registerEvents();
-        }
+        $this->listener = $listener;
     }
 
     /**
      * Extend the profiler.
      *
      * @param  \Closure    $callback
-     * @return void
+     * @return $this
      */
     public function extend(Closure $callback)
     {
-        return call_user_func($callback, $this->monolog);
+        call_user_func($callback, $this->monolog);
+
+        return $this;
     }
 
     /**
-     * Register the live debugger events.
+     * Get Listener instance.
      *
-     * @return void
+     * @return \Orchestra\Debug\Listener
      */
-    protected function registerEvents()
+    public function getListener()
     {
-        if (! is_null($dispatcher = $this->getEventDispatcher())) {
-            $dispatcher->fire('orchestra.debug: attaching', array($this->monolog));
-        }
+        return $this->listener;
     }
 
     /**
-     * Register Monolog handler and establish the connection.
-     *
-     * @return bool
+     * @param $method
+     * @param $parameters
+     * @return mixed
      */
-    protected function registerMonologHandler()
+    public function __call($method, $parameters)
     {
-        $this->addSocketHandler();
-
-        return $this->establishConnection();
-    }
-
-    /**
-     * Add the socket handler onto the Monolog stack.
-     *
-     * @return void
-     */
-    protected function addSocketHandler()
-    {
-        $this->monolog->pushHandler(new SocketHandler('tcp://127.0.0.1:8337'));
-    }
-
-    /**
-     * Attempt to establish the socket handler connection.
-     *
-     * @return bool
-     */
-    protected function establishConnection()
-    {
-        try {
-            $this->monolog->addInfo('Debug client connecting...');
-        } catch (Exception $e) {
-            $this->monolog->popHandler();
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Set the event dispatcher instance to be used by connections.
-     *
-     * @param \Illuminate\Events\Dispatcher $dispatcher
-     * @return void
-     */
-    public function setEventDispatcher(Dispatcher $dispatcher)
-    {
-        $this->container->instance('events', $dispatcher);
-    }
-
-    /**
-     * Get the current event dispatcher instance.
-     *
-     * @return \Illuminate\Events\Dispatcher
-     */
-    public function getEventDispatcher()
-    {
-        if ($this->container->bound('events')) {
-            return $this->container['events'];
-        }
-    }
-
-    /**
-     * Get monolog instance.
-     *
-     * @return \Monolog\Logger
-     */
-    public function getMonolog()
-    {
-        return $this->monolog;
+        return call_user_func_array([$this->getListener(), $method], $parameters);
     }
 }

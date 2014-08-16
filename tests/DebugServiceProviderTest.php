@@ -39,10 +39,10 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $app = m::mock('\Illuminate\Container\Container[error]');
         $monolog = m::mock('\Monolog\Logger');
-        $app['db'] = $db = m::mock('DB');
-        $app['events'] = $events = m::mock('Illuminate\Events\Dispatcher');
-        $app['log'] = $logger = m::mock('Logger');
-        $app['request'] = $request = m::mock('Illuminate\Http\Request');
+        $app['db'] = $db = m::mock('\Illuminate\Database\Connection');
+        $app['events'] = $events = m::mock('\Illuminate\Events\Dispatcher');
+        $app['log'] = $logger = m::mock('\Illuminate\Log\Writer');
+        $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $queryLog = array(
             array(
@@ -73,7 +73,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
                     $c($monolog);
                 });
 
-        $logger->shouldReceive('getMonolog')->once()->andReturn($monolog);
+        $logger->shouldReceive('getMonolog')->twice()->andReturn($monolog);
 
         $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET /foobar</info>')
             ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET /foobar</comment>')
@@ -87,6 +87,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
         $stub->register();
 
         $this->assertInstanceOf('\Orchestra\Debug\Profiler', $app['orchestra.debug']);
+        $this->assertInstanceOf('\Orchestra\Debug\Listener', $app['orchestra.debug.listener']);
     }
 
     /**
@@ -98,6 +99,6 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new DebugServiceProvider($this->app);
 
-        $this->assertEquals(array('orchestra.debug'), $stub->provides());
+        $this->assertEquals(array('orchestra.debug', 'orchestra.debug.listener'), $stub->provides());
     }
 }

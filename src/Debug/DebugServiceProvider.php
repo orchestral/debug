@@ -20,8 +20,26 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerListener();
         $this->registerProfiler();
         $this->registerEvents();
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    protected function registerListener()
+    {
+        $this->app->bindShared('orchestra.debug.listener', function ($app) {
+            $listener = new Listener($app);
+
+            $listener->setEventDispatcher($app['events']);
+            $listener->setMonolog($app['log']->getMonolog());
+
+            return $listener;
+        });
     }
 
     /**
@@ -32,9 +50,9 @@ class DebugServiceProvider extends ServiceProvider
     protected function registerProfiler()
     {
         $this->app->bindShared('orchestra.debug', function ($app) {
-            $profiler = new Profiler($app, $app['log']->getMonolog());
+            $profiler = new Profiler($app['orchestra.debug.listener']);
 
-            $profiler->setEventDispatcher($app['events']);
+            $profiler->setMonolog($app['log']->getMonolog());
 
             return $profiler;
         });
@@ -47,11 +65,9 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerEvents()
     {
-        $me = $this;
-
-        $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) use ($me) {
-            foreach (array('Database', 'NotFoundException', 'Request') as $event) {
-                call_user_func(array($me, "register{$event}Logger"), $monolog);
+        $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) {
+            foreach (['Database', 'NotFoundException', 'Request'] as $event) {
+                call_user_func([$this, "register{$event}Logger"], $monolog);
             }
         });
     }
@@ -128,6 +144,9 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('orchestra.debug');
+        return [
+            'orchestra.debug',
+            'orchestra.debug.listener'
+        ];
     }
 }
