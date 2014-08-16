@@ -37,14 +37,18 @@ trait TimerProfileTrait
 
     /**
      * Calculate timed taken for a process to complete.
-     * @param $name
+     *
+     * @param  string|null  $name
+     * @return void
      */
-    public function endTime($name)
+    public function timeEnd($name = null)
     {
         $end = microtime(true);
 
+        is_null($name) && $name = uniqid();
+
         if (! isset($this->timers[$name])) {
-            throw new InvalidArgumentException("Timer [{$name}] is not available.");
+            Arr::set($this->timers, "{$name}.start", constant('LARAVEL_START'));
         }
 
         $start   = Arr::get($this->timers, "{$name}.start");
