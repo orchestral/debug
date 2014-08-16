@@ -1,7 +1,5 @@
 <?php namespace Orchestra\Debug\Traits;
 
-use InvalidArgumentException;
-use Illuminate\Support\Arr;
 use Orchestra\Support\Str;
 
 trait TimerProfileTrait
@@ -22,17 +20,15 @@ trait TimerProfileTrait
      */
     public function time($name, $message = null)
     {
-        if (isset($this->timers[$name])) {
-            $name = uniqid($name);
-        }
+        $id = isset($this->timers[$name]) ? uniqid($name) : $name;
 
-        $this->timers[$name] = [
+        $this->timers[$id] = [
             'name'    => $name,
             'start'   => microtime(true),
             'message' => $message,
         ];
 
-        return $name;
+        return $id;
     }
 
     /**
@@ -43,17 +39,22 @@ trait TimerProfileTrait
      */
     public function timeEnd($name = null)
     {
+        $id  = $name;
         $end = microtime(true);
 
-        is_null($name) && $name = uniqid();
+        is_null($id) && $id = uniqid();
 
-        if (! isset($this->timers[$name])) {
-            Arr::set($this->timers, "{$name}.start", constant('LARAVEL_START'));
+        if (! isset($this->timers[$id])) {
+            $this->timers[$id] = [
+                'name'    => $name,
+                'start'   => constant('LARAVEL_START'),
+                'message' => null,
+            ];
         }
 
-        $start   = Arr::get($this->timers, "{$name}.start");
-        $seconds = $end - $start;
-        $message = Arr::get($this->timers, "{$name}.message", '{name} took {sec} seconds.');
+        $message = $this->timers[$id]['message'] ?: '{name} took {sec} seconds.';
+        $name    = $this->timers[$id]['name'];
+        $seconds = $end - $this->timers[$id]['start'];
 
         $this->monolog->addInfo(Str::replace($message, ['name' => $name, 'sec' => $seconds]));
     }
