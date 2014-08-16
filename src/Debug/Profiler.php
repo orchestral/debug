@@ -2,10 +2,10 @@
 
 use Closure;
 use Exception;
-use Monolog\Handler\SocketHandler;
-use Monolog\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
+use Monolog\Handler\SocketHandler;
+use Monolog\Logger;
 
 class Profiler
 {
@@ -51,11 +51,13 @@ class Profiler
      * Extend the profiler.
      *
      * @param  \Closure    $callback
-     * @return void
+     * @return $this
      */
     public function extend(Closure $callback)
     {
-        return call_user_func($callback, $this->monolog);
+        call_user_func($callback, $this->monolog);
+
+        return $this;
     }
 
     /**
