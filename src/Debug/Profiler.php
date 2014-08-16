@@ -2,10 +2,10 @@
 
 use Closure;
 use Exception;
-use Monolog\Handler\SocketHandler;
-use Monolog\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
+use Monolog\Handler\SocketHandler;
+use Monolog\Logger;
 
 class Profiler
 {
