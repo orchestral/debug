@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Debug;
 
 use Exception;
-use Illuminate\Support\ServiceProvider;
 use Monolog\Logger;
+use Illuminate\Support\ServiceProvider;
 
 class DebugServiceProvider extends ServiceProvider
 {
