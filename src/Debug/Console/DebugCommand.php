@@ -2,8 +2,8 @@
 
 use Closure;
 use Illuminate\Console\Command;
-use React\Socket\Server as SocketServer;
 use React\EventLoop\LoopInterface;
+use React\Socket\Server as SocketServer;
 
 class DebugCommand extends Command
 {
