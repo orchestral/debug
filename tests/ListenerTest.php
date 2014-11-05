@@ -39,7 +39,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
     {
         $app     = new Container;
         $monolog = m::mock('\Monolog\Logger');
-        $events  = m::mock('\Illuminate\Events\Dispatcher');
+        $events  = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
         $events->shouldReceive('fire')->once()->with('orchestra.debug: attaching', m::type('Array'));
 

@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Debug\Console\DebugCommand;
 use React\Socket\Server as SocketServer;
+use Orchestra\Debug\Console\DebugCommand;
 use React\EventLoop\Factory as LoopFactory;
 
 class CommandServiceProvider extends ServiceProvider
@@ -21,7 +21,7 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared('command.debug', function () {
+        $this->app->singleton('command.debug', function () {
             $loop   = LoopFactory::create();
             $socket = new SocketServer($loop);
 

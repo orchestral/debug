@@ -1,11 +1,10 @@
 <?php namespace Orchestra\Debug;
 
 use Exception;
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
 use Monolog\Handler\SocketHandler;
-use Monolog\Logger;
 use Orchestra\Debug\Traits\MonologTrait;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Container\Container;
 
 class Listener
 {
@@ -14,14 +13,14 @@ class Listener
     /**
      * Container instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
 
     /**
      * Construct a new instance.
      *
-     * @param  \Illuminate\Container\Container  $container
+     * @param  \Illuminate\Contracts\Container\Container  $container
      */
     public function __construct(Container $container)
     {
@@ -95,7 +94,7 @@ class Listener
     /**
      * Set the event dispatcher instance to be used by connections.
      *
-     * @param \Illuminate\Events\Dispatcher $dispatcher
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      * @return void
      */
     public function setEventDispatcher(Dispatcher $dispatcher)
@@ -106,7 +105,7 @@ class Listener
     /**
      * Get the current event dispatcher instance.
      *
-     * @return \Illuminate\Events\Dispatcher|null
+     * @return \Illuminate\Contracts\Events\Dispatcher|null
      */
     public function getEventDispatcher()
     {

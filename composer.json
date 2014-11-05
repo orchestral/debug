@@ -19,15 +19,14 @@
 	"require": {
 		"php": ">=5.4.0",
 		"react/socket": "0.4.*",
-		"orchestra/support-core": "3.0.*"
+		"illuminate/contracts": "5.0.*",
+		"orchestra/support": "3.0.*"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.9.*",
 		"monolog/monolog": "1.*",
 		"illuminate/console": "5.0.*",
 		"illuminate/container": "5.0.*",
-		"illuminate/events": "5.0.*",
-		"illuminate/log": "5.0.*",
 		"illuminate/support": "5.0.*"
 	},
 	"suggest": {

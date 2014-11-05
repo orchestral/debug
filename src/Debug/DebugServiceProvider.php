@@ -21,7 +21,9 @@ class DebugServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerListener();
+
         $this->registerProfiler();
+
         $this->registerEvents();
     }
 
@@ -32,7 +34,7 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerListener()
     {
-        $this->app->bindShared('orchestra.debug.listener', function ($app) {
+        $this->app->singleton('orchestra.debug.listener', function ($app) {
             $listener = new Listener($app);
 
             $listener->setEventDispatcher($app['events']);
@@ -49,7 +51,7 @@ class DebugServiceProvider extends ServiceProvider
      */
     protected function registerProfiler()
     {
-        $this->app->bindShared('orchestra.debug', function ($app) {
+        $this->app->singleton('orchestra.debug', function ($app) {
             $profiler = new Profiler($app['orchestra.debug.listener']);
 
             $profiler->setMonolog($app['log']->getMonolog());
