@@ -63,6 +63,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
                 });
 
         $stub = new DebugCommand($socket, $loop);
+        $stub->setLaravel(new Container);
 
         $stub->run($input, $output);
     }
