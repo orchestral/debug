@@ -3,11 +3,12 @@ Artisan Debug Profiler for Laravel
 
 Debug Component is commandline profiling package for Laravel, It was based from Laravel 4.1 commandline profiling tool which was merged with `php artisan tail`.
 
-[![Latest Stable Version](https://poser.pugx.org/orchestra/debug/v/stable.png)](https://packagist.org/packages/orchestra/debug)
-[![Total Downloads](https://poser.pugx.org/orchestra/debug/downloads.png)](https://packagist.org/packages/orchestra/debug)
-[![Build Status](https://travis-ci.org/orchestral/debug.svg?branch=master)](https://travis-ci.org/orchestral/debug)
-[![Coverage Status](https://coveralls.io/repos/orchestral/debug/badge.png?branch=master)](https://coveralls.io/r/orchestral/debug?branch=master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/debug/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/orchestral/debug/)
+[![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
+[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
+[![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
+[![Build Status](https://img.shields.io/travis/orchestral/debug/master.svg?style=flat)](https://travis-ci.org/orchestral/debug)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/master.svg?style=flat)](https://coveralls.io/r/orchestral/debug?branch=master)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/master.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/debug/)
 
 ## Quick Installation
 
