@@ -13,7 +13,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Orchestra\\Debug\\" : "src/Debug/"
+			"Orchestra\\Debug\\" : "src/"
 		}
 	},
 	"require": {
