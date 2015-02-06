@@ -25,8 +25,7 @@
 		"mockery/mockery": "0.9.*",
 		"monolog/monolog": "1.*",
 		"illuminate/console": "5.0.*",
-		"illuminate/container": "5.0.*",
-		"illuminate/support": "5.0.*"
+		"illuminate/container": "5.0.*"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel"
