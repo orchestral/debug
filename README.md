@@ -6,11 +6,28 @@ Debug Component is commandline profiling package for Laravel, It was based from 
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
 [![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
-[![Build Status](https://img.shields.io/travis/orchestral/debug/master.svg?style=flat)](https://travis-ci.org/orchestral/debug)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/master.svg?style=flat)](https://coveralls.io/r/orchestral/debug?branch=master)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/master.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/debug/)
+[![Build Status](https://img.shields.io/travis/orchestral/debug/3.0.svg?style=flat)](https://travis-ci.org/orchestral/debug)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/3.0.svg?style=flat)](https://coveralls.io/r/orchestral/debug?branch=3.0)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/3.0.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/debug/)
 
-## Quick Installation
+## Table of Content
+
+* [Version Compatibility](#version-compatibility)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Usage](#usage)
+* [Resources](#resources)
+
+## Version Compatibility
+
+Laravel    | Debug
+:----------|:----------
+ 4.0.x     | 2.0.x
+ 4.1.x     | 2.1.x
+ 4.2.x     | 2.2.x
+ 5.0.x     | 3.0.x
+
+## Installation
 
 To install through composer, simply put the following in your `composer.json` file:
 
@@ -22,32 +39,44 @@ To install through composer, simply put the following in your `composer.json` fi
 }
 ```
 
-### Registering the Package
+And then run `composer install` from the terminal.
 
-Next add the following service provider in `app/config/app.php`.
+### Quick Installation
+
+Above installation can also be simplify by using the following command:
+
+    composer require "orchestra/debug=3.0.*"
+
+## Configuration
+
+Add following service providers in `config/app.php`.
 
 ```php
-'providers' => array(
+'providers' => [
 
 	// ...
 
 	'Orchestra\Debug\DebugServiceProvider',
-
 	'Orchestra\Debug\CommandServiceProvider',
-),
+],
 ```
 
-### Adding an Alias
+### Aliases
 
-You could also create an alias for `Orchestra\Debug\Facades\Profiler` in `app/config/app.php`.
+You could also create an alias for `Orchestra\Support\Facades\Profiler` in `config/app.php`.
 
 ```php
-'alias' => array(
-	'Profiler' => 'Orchestra\Debug\Facades\Profiler',
-),
+'aliases' => [
+
+    // ...
+
+	'Profiler' => 'Orchestra\Support\Facades\Profiler',
+],
 ```
 
-## Enabling Profiler
+## Usage
+
+### Enabling Profiler
 
 To enable the profiler, all you need to do is:
 
