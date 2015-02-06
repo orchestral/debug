@@ -3,6 +3,13 @@ title: Artisan Debug Change Log
 
 ---
 
+## Version 3.0 {#v3-0}
+
+### v3.0.0 {#v3-0-0}
+
+* Update support for Laravel Framework v5.0.
+* Simplify PSR-4 path.
+
 ## Version 2.2 {#v2-2}
 
 ### v2.2.1 {#v2-2-1}
