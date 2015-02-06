@@ -37,10 +37,11 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testFireMethod()
     {
-        $input  = m::mock('\Symfony\Component\Console\Input\InputInterface');
-        $output = m::mock('\Symfony\Component\Console\Output\OutputInterface');
-        $socket = m::mock('\React\Socket\Server');
-        $loop   = m::mock('\React\EventLoop\LoopInterface');
+        $input   = m::mock('\Symfony\Component\Console\Input\InputInterface');
+        $output  = m::mock('\Symfony\Component\Console\Output\OutputInterface');
+        $socket  = m::mock('\React\Socket\Server');
+        $loop    = m::mock('\React\EventLoop\LoopInterface');
+        $laravel = m::mock('\Illuminate\Contracts\Foundation\Application');
 
         $connection = m::mock('Connection');
 
@@ -63,7 +64,12 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
                 });
 
         $stub = new DebugCommand($socket, $loop);
-        $stub->setLaravel(new Container);
+        $stub->setLaravel($laravel);
+
+
+        $laravel->shouldReceive('call')->once()->andReturnUsing(function ($object, $parameters = []) {
+            return call_user_func_array($object, $parameters);
+        });
 
         $stub->run($input, $output);
     }
