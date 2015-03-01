@@ -113,6 +113,6 @@ class Listener
             return $this->container['events'];
         }
 
-        return null;
+        return;
     }
 }
