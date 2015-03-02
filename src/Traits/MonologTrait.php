@@ -25,6 +25,7 @@ trait MonologTrait
      * Set monolog instance.
      *
      * @param  \Monolog\Logger  $monolog
+     *
      * @return $this
      */
     public function setMonolog(Logger $monolog)
