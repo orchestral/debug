@@ -18,7 +18,7 @@ class Profiler
     /**
      * Construct a new instance.
      *
-     * @param  \Orchestra\Debug\Listener    $listener
+     * @param  \Orchestra\Debug\Listener  $listener
      */
     public function __construct(Listener $listener)
     {
@@ -28,7 +28,8 @@ class Profiler
     /**
      * Extend the profiler.
      *
-     * @param  \Closure    $callback
+     * @param  \Closure  $callback
+     *
      * @return $this
      */
     public function extend(Closure $callback)
@@ -49,8 +50,11 @@ class Profiler
     }
 
     /**
-     * @param $method
-     * @param $parameters
+     * Pass through call to listener.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

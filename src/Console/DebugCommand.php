@@ -22,14 +22,14 @@ class DebugCommand extends Command
     protected $description = "Start a live debug console";
 
     /**
-     * Socket server instance,
+     * Socket server instance,.
      *
      * @var \React\Socket\Server
      */
     protected $socket;
 
     /**
-     * Event Loop instance,
+     * Event Loop instance,.
      *
      * @var object
      */
@@ -86,6 +86,7 @@ class DebugCommand extends Command
      *
      * @param  \React\Socket\Server  $socket
      * @param  \Closure  $callback
+     *
      * @return void
      */
     protected function onIncoming(SocketServer $socket, Closure $callback)

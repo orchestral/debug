@@ -78,6 +78,7 @@ class DebugServiceProvider extends ServiceProvider
      * Register the database query listener.
      *
      * @param  \Monolog\Logger  $monolog
+     *
      * @return void
      */
     public function registerDatabaseLogger(Logger $monolog)
@@ -100,6 +101,7 @@ class DebugServiceProvider extends ServiceProvider
      * Register the not found exception logger event.
      *
      * @param  \Monolog\Logger  $monolog
+     *
      * @return void
      */
     public function registerNotFoundExceptionLogger(Logger $monolog)
@@ -112,11 +114,12 @@ class DebugServiceProvider extends ServiceProvider
     }
 
     /**
-    * Register the request logger event.
-    *
-    * @param  \Monolog\Logger  $monolog
-    * @return void
-    */
+     * Register the request logger event.
+     *
+     * @param  \Monolog\Logger  $monolog
+     *
+     * @return void
+     */
     public function registerRequestLogger(Logger $monolog)
     {
         $monolog->addInfo('<info>Request: '.$this->getCurrentRoute().'</info>');
@@ -148,7 +151,7 @@ class DebugServiceProvider extends ServiceProvider
     {
         return [
             'orchestra.debug',
-            'orchestra.debug.listener'
+            'orchestra.debug.listener',
         ];
     }
 }

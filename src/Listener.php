@@ -95,6 +95,7 @@ class Listener
      * Set the event dispatcher instance to be used by connections.
      *
      * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+     *
      * @return void
      */
     public function setEventDispatcher(Dispatcher $dispatcher)

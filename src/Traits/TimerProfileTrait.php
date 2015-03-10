@@ -16,6 +16,7 @@ trait TimerProfileTrait
      *
      * @param  string       $name
      * @param  string|null  $message
+     *
      * @return string
      */
     public function time($name, $message = null)
@@ -35,6 +36,7 @@ trait TimerProfileTrait
      * Calculate timed taken for a process to complete.
      *
      * @param  string|null  $name
+     *
      * @return void
      */
     public function timeEnd($name = null)
