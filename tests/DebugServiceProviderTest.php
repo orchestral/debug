@@ -18,7 +18,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = new Container;
+        $this->app = new Container();
     }
 
     /**
@@ -37,36 +37,36 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app = m::mock('\Illuminate\Container\Container[error]');
-        $monolog = m::mock('\Monolog\Logger');
-        $app['db'] = $db = m::mock('\Illuminate\Database\Connection');
-        $app['events'] = $events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
-        $app['log'] = $logger = m::mock('\Illuminate\Log\Writer');
+        $app            = m::mock('\Illuminate\Container\Container[error]');
+        $monolog        = m::mock('\Monolog\Logger');
+        $app['db']      = $db      = m::mock('\Illuminate\Database\Connection');
+        $app['events']  = $events  = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $app['log']     = $logger     = m::mock('\Illuminate\Log\Writer');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
-        $queryLog = array(
-            array(
-                'query' => "SELECT * FROM `users` WHERE id=?",
-                'bindings' => array(10),
-                'time' => 3,
-            ),
-        );
+        $queryLog = [
+            [
+                'query'    => "SELECT * FROM `users` WHERE id=?",
+                'bindings' => [10],
+                'time'     => 3,
+            ],
+        ];
 
         $stub = new DebugServiceProvider($app);
 
         $app->shouldReceive('error')->once()->with(m::type('Closure'))
                 ->andReturnUsing(function ($c) {
-                    $e = new \RuntimeException;
+                    $e = new \RuntimeException();
                     $c($e);
                 });
 
-        $db->shouldReceive('prepareBindings')->once()->with(array(1))->andReturn(array(1))
-            ->shouldReceive('prepareBindings')->once()->with(array(10))->andReturn(array(10))
+        $db->shouldReceive('prepareBindings')->once()->with([1])->andReturn([1])
+            ->shouldReceive('prepareBindings')->once()->with([10])->andReturn([10])
             ->shouldReceive('getQueryLog')->once()->andReturn($queryLog);
 
         $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
                 ->andReturnUsing(function ($n, $c) use ($monolog) {
-                    $c("SELECT * FROM `foo` WHERE id=?", array(1), 1);
+                    $c("SELECT * FROM `foo` WHERE id=?", [1], 1);
                 })
             ->shouldReceive('listen')->once()->with('orchestra.debug: attaching', m::type('Closure'))
                 ->andReturnUsing(function ($n, $c) use ($monolog) {
@@ -99,6 +99,6 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new DebugServiceProvider($this->app);
 
-        $this->assertEquals(array('orchestra.debug', 'orchestra.debug.listener'), $stub->provides());
+        $this->assertEquals(['orchestra.debug', 'orchestra.debug.listener'], $stub->provides());
     }
 }

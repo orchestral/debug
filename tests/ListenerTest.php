@@ -18,7 +18,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = new Container;
+        $this->app = new Container();
     }
 
     /**
@@ -37,7 +37,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachDebuggerMethod()
     {
-        $app     = new Container;
+        $app     = new Container();
         $monolog = m::mock('\Monolog\Logger');
         $events  = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
@@ -60,7 +60,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($monolog, $stub->getMonolog());
     }
 
-     /**
+    /**
      * Test Orchestra\Debug\CommandServiceProvider::register() method when
      * unable to establish connection to monolog.
      *
@@ -68,7 +68,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethodWhenMonologIsNotConnected()
     {
-        $app = $this->app;
+        $app     = $this->app;
         $monolog = m::mock('\Monolog\Logger');
 
         $monolog->shouldReceive('pushHandler')->once()->andReturn(null)

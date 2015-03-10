@@ -58,7 +58,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallListenerMethod()
     {
-        $listener = m::mock('\Orchestra\Debug\Listener[attachDebugger]', array(m::mock('\Illuminate\Container\Container')));
+        $listener = m::mock('\Orchestra\Debug\Listener[attachDebugger]', [m::mock('\Illuminate\Container\Container')]);
         $monolog  = m::mock('\Monolog\Logger');
 
         $listener->shouldReceive('attachDebugger')->once()->andReturnNull();

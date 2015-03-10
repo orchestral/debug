@@ -18,7 +18,7 @@ class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = new Container;
+        $this->app = new Container();
     }
 
     /**
@@ -37,7 +37,7 @@ class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app = $this->app;
+        $app           = $this->app;
         $app['events'] = $events = m::mock('EventDispatcher');
 
         $events->shouldReceive('listen')->once()
@@ -59,6 +59,6 @@ class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new CommandServiceProvider($this->app);
 
-        $this->assertEquals(array('command.debug'), $stub->provides());
+        $this->assertEquals(['command.debug'], $stub->provides());
     }
 }

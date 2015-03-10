@@ -18,7 +18,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->app = new Container;
+        $this->app = new Container();
     }
 
     /**
@@ -65,7 +65,6 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
 
         $stub = new DebugCommand($socket, $loop);
         $stub->setLaravel($laravel);
-
 
         $laravel->shouldReceive('call')->once()->andReturnUsing(function ($object, $parameters = []) {
             return call_user_func_array($object, $parameters);
