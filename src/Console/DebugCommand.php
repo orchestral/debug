@@ -19,7 +19,7 @@ class DebugCommand extends Command
      *
      * @var string
      */
-    protected $description = "Start a live debug console";
+    protected $description = 'Start a live debug console';
 
     /**
      * Socket server instance,.
