@@ -49,8 +49,8 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('isInteractive')->once()->andReturn(true)
             ->shouldReceive('validate')->once();
 
-        $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>')
-            ->shouldReceive('write')->once()->with('Foobar');
+        $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 0)
+            ->shouldReceive('write')->once()->with('Foobar', false, 0);
 
         $loop->shouldReceive('run')->once();
         $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)
