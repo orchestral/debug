@@ -56,7 +56,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getVerbosity')->andReturn(0)
             ->shouldReceive('getFormatter')->andReturn($formatter);
 
-        $formatter->shouldReceive('setDecorated')->once()->andReturn(false);
+        $formatter->shouldReceive('setDecorated')->andReturn(false);
 
         $loop->shouldReceive('run')->once();
         $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)
