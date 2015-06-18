@@ -39,7 +39,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
     public function testFireMethod()
     {
         $input   = m::mock('\Symfony\Component\Console\Input\InputInterface');
-        $output  = m::mock('\Symfony\Component\Console\Output\OutputInterface');
+        $output  = m::mock('\Symfony\Component\Console\Output\OutputInterface[writeln,write]');
         $socket  = m::mock('\React\Socket\Server');
         $loop    = m::mock('\React\EventLoop\LoopInterface');
         $laravel = m::mock('\Illuminate\Contracts\Foundation\Application');
@@ -51,8 +51,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('validate')->once();
 
         $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 0)
-            ->shouldReceive('write')->once()->with('Foobar', false, 0)
-            ->shouldReceive('getVerbosity')->andReturn(OutputInterface::VERBOSITY_QUIET);
+            ->shouldReceive('write')->once()->with('Foobar', false, 0);
 
         $loop->shouldReceive('run')->once();
         $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)
