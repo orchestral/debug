@@ -37,8 +37,8 @@ class DebugServiceProvider extends ServiceProvider
         $this->app->singleton('orchestra.debug.listener', function ($app) {
             $listener = new Listener($app);
 
-            $listener->setEventDispatcher($app['events']);
-            $listener->setMonolog($app['log']->getMonolog());
+            $listener->setEventDispatcher($app->make('events'));
+            $listener->setMonolog($app->make('log')->getMonolog());
 
             return $listener;
         });
@@ -52,9 +52,9 @@ class DebugServiceProvider extends ServiceProvider
     protected function registerProfiler()
     {
         $this->app->singleton('orchestra.debug', function ($app) {
-            $profiler = new Profiler($app['orchestra.debug.listener']);
+            $profiler = new Profiler($app->make('orchestra.debug.listener'));
 
-            $profiler->setMonolog($app['log']->getMonolog());
+            $profiler->setMonolog($app->make('log')->getMonolog());
 
             return $profiler;
         });
@@ -94,7 +94,7 @@ class DebugServiceProvider extends ServiceProvider
             call_user_func($callback, $query['query'], $query['bindings'], $query['time']);
         }
 
-        $this->app['events']->listen('illuminate.query', $callback);
+        $this->app->make('events')->listen('illuminate.query', $callback);
     }
 
     /**
