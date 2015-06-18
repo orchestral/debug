@@ -3,6 +3,7 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Orchestra\Debug\Console\DebugCommand;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DebugCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +51,8 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('validate')->once();
 
         $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 0)
-            ->shouldReceive('write')->once()->with('Foobar', false, 0);
+            ->shouldReceive('write')->once()->with('Foobar', false, 0)
+            ->shouldReceive('getVerbosity')->andReturn(OutputInterface::VERBOSITY_QUIET);
 
         $loop->shouldReceive('run')->once();
         $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)
