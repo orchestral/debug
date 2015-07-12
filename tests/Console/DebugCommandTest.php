@@ -3,6 +3,7 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Orchestra\Debug\Console\DebugCommand;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DebugCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,11 +38,12 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testFireMethod()
     {
-        $input   = m::mock('\Symfony\Component\Console\Input\InputInterface');
-        $output  = m::mock('\Symfony\Component\Console\Output\OutputInterface');
-        $socket  = m::mock('\React\Socket\Server');
-        $loop    = m::mock('\React\EventLoop\LoopInterface');
-        $laravel = m::mock('\Illuminate\Contracts\Foundation\Application');
+        $input     = m::mock('\Symfony\Component\Console\Input\InputInterface');
+        $output    = m::mock('\Symfony\Component\Console\Output\OutputInterface');
+        $formatter = m::mock('\Symfony\Component\Console\Formatter\OutputFormatterInterface');
+        $socket    = m::mock('\React\Socket\Server');
+        $loop      = m::mock('\React\EventLoop\LoopInterface');
+        $laravel   = m::mock('\Illuminate\Contracts\Foundation\Application');
 
         $connection = m::mock('Connection');
 
@@ -50,7 +52,11 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('validate')->once();
 
         $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 0)
-            ->shouldReceive('write')->once()->with('Foobar', false, 0);
+            ->shouldReceive('write')->once()->with('Foobar', false, 0)
+            ->shouldReceive('getVerbosity')->andReturn(0)
+            ->shouldReceive('getFormatter')->andReturn($formatter);
+
+        $formatter->shouldReceive('setDecorated')->andReturn(false);
 
         $loop->shouldReceive('run')->once();
         $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)

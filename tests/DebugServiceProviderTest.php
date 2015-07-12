@@ -37,11 +37,11 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app            = m::mock('\Illuminate\Container\Container[error]');
-        $monolog        = m::mock('\Monolog\Logger');
-        $app['db']      = $db      = m::mock('\Illuminate\Database\Connection');
-        $app['events']  = $events  = m::mock('\Illuminate\Contracts\Events\Dispatcher');
-        $app['log']     = $logger     = m::mock('\Illuminate\Log\Writer');
+        $app = m::mock('\Illuminate\Container\Container[error]');
+        $monolog = m::mock('\Monolog\Logger');
+        $app['db'] = $db = m::mock('\Illuminate\Database\Connection');
+        $app['events'] = $events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $app['log'] = $logger = m::mock('\Illuminate\Log\Writer');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $queryLog = [
