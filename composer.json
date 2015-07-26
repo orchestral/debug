@@ -1,39 +1,39 @@
 {
-	"name": "orchestra/debug",
-	"description": "Artisan Debug Profiler for Laravel",
-	"homepage": "http://orchestraplatform.com/docs/latest/components/debug/",
-	"keywords": ["orchestra-platform", "orchestral", "laravel", "profiler", "debug"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com",
-			"homepage": "https://github.com/crynobone"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Orchestra\\Debug\\" : "src/"
-		}
-	},
-	"require": {
-		"php": ">=5.5.0",
-		"react/socket": "0.4.*",
-		"orchestra/support": "~3.1.0"
-	},
-	"require-dev": {
-		"mockery/mockery": "0.9.*",
-		"monolog/monolog": "~1.11",
-		"illuminate/console": "~5.1.0",
-		"illuminate/container": "~5.1.0"
-	},
-	"suggest": {
-		"laravel/framework": "Allow using orchestra/debug as added feature for Laravel (~5.1)."
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.2-dev"
-		}
-	},
-	"minimum-stability": "dev"
+    "name": "orchestra/debug",
+    "description": "Artisan Debug Profiler for Laravel",
+    "homepage": "http://orchestraplatform.com/docs/latest/components/debug/",
+    "keywords": ["orchestra-platform", "orchestral", "laravel", "profiler", "debug"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mior Muhammad Zaki",
+            "email": "crynobone@gmail.com",
+            "homepage": "https://github.com/crynobone"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Orchestra\\Debug\\" : "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "react/socket": "0.4.*",
+        "orchestra/support": "~3.1.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "monolog/monolog": "~1.11",
+        "illuminate/console": "~5.1.0",
+        "illuminate/container": "~5.1.0"
+    },
+    "suggest": {
+        "laravel/framework": "Allow using orchestra/debug as added feature for Laravel (~5.1)."
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2-dev"
+        }
+    },
+    "minimum-stability": "dev"
 }
