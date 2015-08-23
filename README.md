@@ -1,14 +1,16 @@
 Artisan Debug Profiler for Laravel
 ==============
 
+[![Join the chat at https://gitter.im/orchestral/platform/components](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orchestral/platform/components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Debug Component is commandline profiling package for Laravel, It was based from Laravel 4.1 commandline profiling tool which was merged with `php artisan tail`.
 
-[![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
-[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
-[![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat)](https://packagist.org/packages/orchestra/debug)
-[![Build Status](https://img.shields.io/travis/orchestral/debug/3.1.svg?style=flat)](https://travis-ci.org/orchestral/debug)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/3.1.svg?style=flat)](https://coveralls.io/r/orchestral/debug?branch=3.1)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/3.1.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/debug/)
+[![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
+[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
+[![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
+[![Build Status](https://img.shields.io/travis/orchestral/debug/3.1.svg?style=flat-square)](https://travis-ci.org/orchestral/debug)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/3.1.svg?style=flat-square)](https://coveralls.io/r/orchestral/debug?branch=3.1)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/3.1.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/debug/)
 
 ## Table of Content
 
