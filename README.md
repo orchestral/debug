@@ -1,6 +1,8 @@
 Artisan Debug Profiler for Laravel
 ==============
 
+[![Join the chat at https://gitter.im/orchestral/platform/components](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orchestral/platform/components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Debug Component is commandline profiling package for Laravel, It was based from Laravel 4.1 commandline profiling tool which was merged with `php artisan tail`.
 
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
