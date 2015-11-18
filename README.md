@@ -8,9 +8,9 @@ Debug Component is commandline profiling package for Laravel, It was based from 
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
 [![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
-[![Build Status](https://img.shields.io/travis/orchestral/debug/3.2.svg?style=flat-square)](https://travis-ci.org/orchestral/debug)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/3.2.svg?style=flat-square)](https://coveralls.io/r/orchestral/debug?branch=3.2)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/3.2.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/debug/)
+[![Build Status](https://img.shields.io/travis/orchestral/debug/master.svg?style=flat-square)](https://travis-ci.org/orchestral/debug)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/master.svg?style=flat-square)](https://coveralls.io/r/orchestral/debug?branch=master)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/debug/)
 
 ## Table of Content
 
@@ -30,6 +30,7 @@ Laravel    | Debug
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
  5.2.x     | 3.2.x@dev
+ 5.3.x     | 3.3.x@dev
 
 ## Installation
 
