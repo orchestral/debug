@@ -3,6 +3,7 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Orchestra\Debug\DebugServiceProvider;
+use Illuminate\Database\Events\QueryExecuted;
 
 class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +38,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app = m::mock('\Illuminate\Container\Container[error]');
+        $app = new Container();
         $monolog = m::mock('\Monolog\Logger');
         $app['db'] = $db = m::mock('\Illuminate\Database\Connection');
         $app['events'] = $events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
@@ -54,19 +55,14 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $stub = new DebugServiceProvider($app);
 
-        $app->shouldReceive('error')->once()->with(m::type('Closure'))
-                ->andReturnUsing(function ($c) {
-                    $e = new \RuntimeException();
-                    $c($e);
-                });
-
         $db->shouldReceive('prepareBindings')->once()->with([1])->andReturn([1])
             ->shouldReceive('prepareBindings')->once()->with([10])->andReturn([10])
-            ->shouldReceive('getQueryLog')->once()->andReturn($queryLog);
+            ->shouldReceive('getQueryLog')->once()->andReturn($queryLog)
+            ->shouldReceive('getName')->twice()->andReturn('mysql');
 
-        $events->shouldReceive('listen')->once()->with('illuminate.query', m::type('Closure'))
-                ->andReturnUsing(function ($n, $c) use ($monolog) {
-                    $c("SELECT * FROM `foo` WHERE id=?", [1], 1);
+        $events->shouldReceive('listen')->once()->with(QueryExecuted::class, m::type('Closure'))
+                ->andReturnUsing(function ($n, $c) use ($db) {
+                    $c(new QueryExecuted("SELECT * FROM `foo` WHERE id=?", [1], 1, $db));
                 })
             ->shouldReceive('listen')->once()->with('orchestra.debug: attaching', m::type('Closure'))
                 ->andReturnUsing(function ($n, $c) use ($monolog) {
@@ -76,13 +72,12 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
         $logger->shouldReceive('getMonolog')->twice()->andReturn($monolog);
 
         $monolog->shouldReceive('addInfo')->once()->with('<info>Request: GET /foobar</info>')
-            ->shouldReceive('addInfo')->once()->with('<comment>Exception <error>RuntimeException</error> on GET /foobar</comment>')
             ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `foo` WHERE id=1 [1ms]</comment>')
             ->shouldReceive('addInfo')->once()->with('<comment>SELECT * FROM `users` WHERE id=10 [3ms]</comment>');
 
-        $request->shouldReceive('getMethod')->twice()->andReturn('GET')
-            ->shouldReceive('getHost')->twice()->andReturn(null)
-            ->shouldReceive('path')->twice()->andReturn('foobar');
+        $request->shouldReceive('getMethod')->once()->andReturn('GET')
+            ->shouldReceive('getHost')->once()->andReturn(null)
+            ->shouldReceive('path')->once()->andReturn('foobar');
 
         $stub->register();
 
