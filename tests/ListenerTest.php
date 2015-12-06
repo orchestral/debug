@@ -37,9 +37,9 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachDebuggerMethod()
     {
-        $app     = new Container();
+        $app = new Container();
         $monolog = m::mock('\Monolog\Logger');
-        $events  = m::mock('\Illuminate\Contracts\Events\Dispatcher');
+        $events = m::mock('\Illuminate\Contracts\Events\Dispatcher');
 
         $events->shouldReceive('fire')->once()->with('orchestra.debug: attaching', m::type('Array'));
 
@@ -68,7 +68,7 @@ class ListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethodWhenMonologIsNotConnected()
     {
-        $app     = $this->app;
+        $app = $this->app;
         $monolog = m::mock('\Monolog\Logger');
 
         $monolog->shouldReceive('pushHandler')->once()->andReturn(null)

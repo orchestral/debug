@@ -3,7 +3,6 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Orchestra\Debug\Console\DebugCommand;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class DebugCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,17 +38,17 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testFireMethod()
     {
-        $input     = m::mock('\Symfony\Component\Console\Input\InputInterface');
-        $output    = m::mock('\Symfony\Component\Console\Output\OutputInterface');
+        $input = m::mock('\Symfony\Component\Console\Input\InputInterface');
+        $output = m::mock('\Symfony\Component\Console\Output\OutputInterface');
         $formatter = m::mock('\Symfony\Component\Console\Formatter\OutputFormatterInterface');
-        $socket    = m::mock('\React\Socket\Server');
-        $loop      = m::mock('\React\EventLoop\LoopInterface');
-        $laravel   = m::mock('\Illuminate\Contracts\Foundation\Application');
+        $socket = m::mock('\React\Socket\Server');
+        $loop = m::mock('\React\EventLoop\LoopInterface');
+        $laravel = m::mock('\Illuminate\Contracts\Foundation\Application');
 
         $connection = m::mock('Connection');
 
         $input->shouldReceive('bind')->once()
-            ->shouldReceive('hasArgument')->once()->andReturn(false)
+            ->shouldReceive('hasArgument')->andReturn(false)
             ->shouldReceive('isInteractive')->once()->andReturn(true)
             ->shouldReceive('validate')->once();
 
