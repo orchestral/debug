@@ -37,7 +37,7 @@ class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMethod()
     {
-        $app           = $this->app;
+        $app = $this->app;
         $app['events'] = $events = m::mock('EventDispatcher');
 
         $events->shouldReceive('listen')->once()

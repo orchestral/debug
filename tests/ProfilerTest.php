@@ -21,7 +21,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
     public function testExtendMethod()
     {
         $listener = m::mock('\Orchestra\Debug\Listener');
-        $monolog  = m::mock('\Monolog\Logger');
+        $monolog = m::mock('\Monolog\Logger');
 
         $monolog->shouldReceive('addInfo')->once()->with('Called!')->andReturn(null);
 
@@ -43,7 +43,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
     public function testGetListenerMethod()
     {
         $listener = m::mock('\Orchestra\Debug\Listener');
-        $monolog  = m::mock('\Monolog\Logger');
+        $monolog = m::mock('\Monolog\Logger');
 
         $stub = new Profiler($listener);
         $stub->setMonolog($monolog);
@@ -59,7 +59,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
     public function testCallListenerMethod()
     {
         $listener = m::mock('\Orchestra\Debug\Listener[attachDebugger]', [m::mock('\Illuminate\Container\Container')]);
-        $monolog  = m::mock('\Monolog\Logger');
+        $monolog = m::mock('\Monolog\Logger');
 
         $listener->shouldReceive('attachDebugger')->once()->andReturnNull();
 

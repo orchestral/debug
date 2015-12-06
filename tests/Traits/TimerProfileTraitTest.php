@@ -20,7 +20,7 @@ class TimerProfileTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testTimerMethod()
     {
-        $this->timers  = [];
+        $this->timers = [];
         $this->monolog = $monolog = m::mock('\Monolog\Logger');
 
         $monolog->shouldReceive('addInfo')->once()->with(m::type('String'));
@@ -47,7 +47,7 @@ class TimerProfileTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testTimerMethodWithoutCallingStartTime()
     {
-        $this->timers  = [];
+        $this->timers = [];
         $this->monolog = $monolog = m::mock('\Monolog\Logger');
 
         defined('LARAVEL_START') || define('LARAVEL_START', microtime(true));
