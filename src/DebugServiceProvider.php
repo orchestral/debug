@@ -68,7 +68,7 @@ class DebugServiceProvider extends ServiceProvider
     protected function registerEvents()
     {
         $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) {
-            foreach (['Database', 'NotFoundException', 'Request'] as $event) {
+            foreach (['Database', 'Request'] as $event) {
                 call_user_func([$this, "register{$event}Logger"], $monolog);
             }
         });
@@ -95,22 +95,6 @@ class DebugServiceProvider extends ServiceProvider
         }
 
         $this->app->make('events')->listen('illuminate.query', $callback);
-    }
-
-    /**
-     * Register the not found exception logger event.
-     *
-     * @param  \Monolog\Logger  $monolog
-     *
-     * @return void
-     */
-    public function registerNotFoundExceptionLogger(Logger $monolog)
-    {
-        $route = $this->getCurrentRoute();
-
-        $this->app->error(function (Exception $e) use ($monolog, $route) {
-            $monolog->addInfo('<comment>Exception <error>'.get_class($e).'</error> on '.$route.'</comment>');
-        });
     }
 
     /**
