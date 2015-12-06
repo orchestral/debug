@@ -48,6 +48,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
         $connection = m::mock('Connection');
 
         $input->shouldReceive('bind')->once()
+            ->shouldReceive('hasArgument')->once()->andReturn(false)
             ->shouldReceive('isInteractive')->once()->andReturn(true)
             ->shouldReceive('validate')->once();
 
