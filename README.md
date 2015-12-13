@@ -102,4 +102,4 @@ php artisan debug
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/debug)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v3-1)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v3-3)
