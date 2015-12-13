@@ -3,6 +3,7 @@
 use Exception;
 use Monolog\Logger;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Events\QueryExecuted;
 
 class DebugServiceProvider extends ServiceProvider
 {
@@ -68,7 +69,7 @@ class DebugServiceProvider extends ServiceProvider
     protected function registerEvents()
     {
         $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) {
-            foreach (['Database', 'NotFoundException', 'Request'] as $event) {
+            foreach (['Database', 'Request'] as $event) {
                 call_user_func([$this, "register{$event}Logger"], $monolog);
             }
         });
@@ -85,32 +86,16 @@ class DebugServiceProvider extends ServiceProvider
     {
         $db = $this->app['db'];
 
-        $callback = function ($sql, $bindings, $time) use ($db, $monolog) {
-            $sql = str_replace_array('\?', $db->prepareBindings($bindings), $sql);
-            $monolog->addInfo('<comment>'.$sql.' ['.$time.'ms]</comment>');
+        $callback = function (QueryExecuted $query) use ($monolog) {
+            $sql = str_replace_array('\?', $query->connection->prepareBindings($query->bindings), $query->sql);
+            $monolog->addInfo("<comment>{$sql} [{$query->time}ms]</comment>");
         };
 
         foreach ($db->getQueryLog() as $query) {
-            call_user_func($callback, $query['query'], $query['bindings'], $query['time']);
+            call_user_func($callback, new QueryExecuted($query['query'], $query['bindings'], $query['time'], $db));
         }
 
-        $this->app->make('events')->listen('illuminate.query', $callback);
-    }
-
-    /**
-     * Register the not found exception logger event.
-     *
-     * @param  \Monolog\Logger  $monolog
-     *
-     * @return void
-     */
-    public function registerNotFoundExceptionLogger(Logger $monolog)
-    {
-        $route = $this->getCurrentRoute();
-
-        $this->app->error(function (Exception $e) use ($monolog, $route) {
-            $monolog->addInfo('<comment>Exception <error>'.get_class($e).'</error> on '.$route.'</comment>');
-        });
+        $this->app->make('events')->listen(QueryExecuted::class, $callback);
     }
 
     /**

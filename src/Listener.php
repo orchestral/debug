@@ -113,7 +113,5 @@ class Listener
         if ($this->container->bound('events')) {
             return $this->container['events'];
         }
-
-        return;
     }
 }
