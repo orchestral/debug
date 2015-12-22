@@ -29,7 +29,7 @@ Laravel    | Debug
  4.2.x     | 2.2.x
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
- 5.2.x     | 3.2.x@dev
+ 5.2.x     | 3.2.x
 
 ## Installation
 
@@ -101,4 +101,4 @@ php artisan debug
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/debug)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v3-1)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v3-2)
