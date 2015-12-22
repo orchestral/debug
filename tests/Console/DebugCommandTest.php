@@ -52,7 +52,7 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('isInteractive')->once()->andReturn(true)
             ->shouldReceive('validate')->once();
 
-        $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 1)
+        $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 32)
             ->shouldReceive('write')->once()->with('Foobar', false, 1)
             ->shouldReceive('getVerbosity')->andReturn(0)
             ->shouldReceive('getFormatter')->andReturn($formatter);
