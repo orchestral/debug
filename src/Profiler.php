@@ -59,6 +59,6 @@ class Profiler
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->getListener(), $method], $parameters);
+        return call_user_func([$this->getListener(), $method], ...$parameters);
     }
 }
