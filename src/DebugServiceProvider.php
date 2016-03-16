@@ -70,7 +70,7 @@ class DebugServiceProvider extends ServiceProvider
     {
         $this->app['events']->listen('orchestra.debug: attaching', function ($monolog) {
             foreach (['Database', 'Request'] as $event) {
-                call_user_func([$this, "register{$event}Logger"], $monolog);
+                $this->{"register{$event}Logger"}($monolog);
             }
         });
     }
@@ -92,7 +92,7 @@ class DebugServiceProvider extends ServiceProvider
         };
 
         foreach ($db->getQueryLog() as $query) {
-            call_user_func($callback, new QueryExecuted($query['query'], $query['bindings'], $query['time'], $db));
+            $callback(new QueryExecuted($query['query'], $query['bindings'], $query['time'], $db));
         }
 
         $this->app->make('events')->listen(QueryExecuted::class, $callback);
