@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Debug\Traits;
+<?php
+
+namespace Orchestra\Debug\Traits;
 
 use Monolog\Logger;
 

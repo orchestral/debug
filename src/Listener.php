@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Debug;
+<?php
+
+namespace Orchestra\Debug;
 
 use Exception;
 use Monolog\Handler\SocketHandler;

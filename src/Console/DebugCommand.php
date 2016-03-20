@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Debug\Console;
+<?php
+
+namespace Orchestra\Debug\Console;
 
 use Closure;
 use Illuminate\Console\Command;

@@ -1,6 +1,7 @@
-<?php namespace Orchestra\Debug;
+<?php
 
-use Exception;
+namespace Orchestra\Debug;
+
 use Monolog\Logger;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;

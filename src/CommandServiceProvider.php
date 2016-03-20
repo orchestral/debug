@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Debug;
+<?php
+
+namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
 use React\Socket\Server as SocketServer;
