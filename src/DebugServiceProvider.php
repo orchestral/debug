@@ -3,6 +3,7 @@
 namespace Orchestra\Debug;
 
 use Monolog\Logger;
+use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;
 
@@ -85,10 +86,10 @@ class DebugServiceProvider extends ServiceProvider
      */
     public function registerDatabaseLogger(Logger $monolog)
     {
-        $db = $this->app['db'];
+        $db = $this->app->make('db');
 
         $callback = function (QueryExecuted $query) use ($monolog) {
-            $sql = str_replace_array('\?', $query->connection->prepareBindings($query->bindings), $query->sql);
+            $sql = Str::replaceArray('?', $query->connection->prepareBindings($query->bindings), $query->sql);
             $monolog->addInfo("<comment>{$sql} [{$query->time}ms]</comment>");
         };
 

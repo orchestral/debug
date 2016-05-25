@@ -60,7 +60,7 @@ class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getQueryLog')->once()->andReturn($queryLog)
             ->shouldReceive('getName')->twice()->andReturn('mysql');
 
-        $events->shouldReceive('listen')->once()->with(QueryExecuted::class, m::type('Closure'))
+        $events->shouldReceive('listen')->with(QueryExecuted::class, m::type('Closure'))
                 ->andReturnUsing(function ($n, $c) use ($db) {
                     $c(new QueryExecuted("SELECT * FROM `foo` WHERE id=?", [1], 1, $db));
                 })
