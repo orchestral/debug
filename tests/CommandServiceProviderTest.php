@@ -40,9 +40,6 @@ class CommandServiceProviderTest extends \PHPUnit_Framework_TestCase
         $app = $this->app;
         $app['events'] = $events = m::mock('EventDispatcher');
 
-        $events->shouldReceive('listen')->once()
-                ->with('Illuminate\Console\Events\ArtisanStarting', m::type('Closure'))->andReturn(null);
-
         $stub = new CommandServiceProvider($app);
 
         $stub->register();
