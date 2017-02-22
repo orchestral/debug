@@ -40,15 +40,13 @@ class DebugCommand extends Command
     /**
      * Construct a new instance.
      *
-     * @param  \React\Socket\Server            $socket
      * @param  \React\EventLoop\LoopInterface  $loop
      */
-    public function __construct(SocketServer $socket, LoopInterface $loop)
+    public function __construct(LoopInterface $loop)
     {
         parent::__construct();
 
-        $this->socket = $socket;
-        $this->loop   = $loop;
+        $this->loop = $loop;
     }
 
     /**
@@ -71,16 +69,16 @@ class DebugCommand extends Command
      */
     protected function configureSocket()
     {
+
+        $socket = new SocketServer('127.0.0.1:8337', $this->loop);
         $output = $this->output;
 
         // Here we will pass the callback that will handle incoming data to the console
         // and we can log it out however we want. We will just write it out using an
         // implementation of a consoles OutputInterface which should perform fine.
-        $this->onIncoming($this->socket, function ($data) use ($output) {
+        $this->onIncoming($socket, function ($data) use ($output) {
             $output->write($data);
         });
-
-        $this->socket->listen(8337, '127.0.0.1');
     }
 
     /**
