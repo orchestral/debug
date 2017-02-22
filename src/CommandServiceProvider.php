@@ -24,10 +24,9 @@ class CommandServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('command.debug', function () {
-            $loop   = LoopFactory::create();
-            $socket = new SocketServer($loop);
+            $loop = LoopFactory::create();
 
-            return new DebugCommand($socket, $loop);
+            return new DebugCommand($loop);
         });
 
         $this->commands('command.debug');

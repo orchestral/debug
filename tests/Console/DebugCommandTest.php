@@ -41,7 +41,6 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
         $input = m::mock('\Symfony\Component\Console\Input\InputInterface');
         $output = m::mock('\Symfony\Component\Console\Output\OutputInterface');
         $formatter = m::mock('\Symfony\Component\Console\Formatter\OutputFormatterInterface');
-        $socket = m::mock('\React\Socket\Server');
         $loop = m::mock('\React\EventLoop\LoopInterface');
         $laravel = m::mock('\Illuminate\Contracts\Foundation\Application');
 
@@ -53,24 +52,15 @@ class DebugCommandTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('validate')->once();
 
         $output->shouldReceive('writeln')->once()->with('<info>Live debugger started...</info>', 32)
-            ->shouldReceive('write')->once()->with('Foobar', false, 1)
             ->shouldReceive('getVerbosity')->andReturn(0)
             ->shouldReceive('getFormatter')->andReturn($formatter);
 
         $formatter->shouldReceive('setDecorated')->andReturn(false);
 
-        $loop->shouldReceive('run')->once();
-        $socket->shouldReceive('listen')->once()->with(8337, '127.0.0.1')->andReturn(null)
-            ->shouldReceive('on')->once()->with('connection', m::type('Closure'))
-                ->andReturnUsing(function ($n, $c) use ($connection) {
-                    $c($connection);
-                });
-        $connection->shouldReceive('on')->once()->with('data', m::type('Closure'))
-                ->andReturnUsing(function ($n, $c) {
-                    $c('Foobar');
-                });
+        $loop->shouldReceive('addReadStream')->andReturn(null)
+            ->shouldReceive('run')->andReturnNull();
 
-        $stub = new DebugCommand($socket, $loop);
+        $stub = new DebugCommand($loop);
         $stub->setLaravel($laravel);
 
         $laravel->shouldReceive('call')->once()->andReturnUsing(function ($object, $parameters = []) {
