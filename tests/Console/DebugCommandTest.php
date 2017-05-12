@@ -1,10 +1,11 @@
 <?php namespace Orchestra\Debug\Console\TestCase;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Orchestra\Debug\Console\DebugCommand;
 
-class DebugCommandTest extends \PHPUnit_Framework_TestCase
+class DebugCommandTest extends TestCase
 {
     /**
      * Application instance.

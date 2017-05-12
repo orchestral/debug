@@ -2,8 +2,9 @@
 
 use Mockery as m;
 use Orchestra\Debug\Profiler;
+use PHPUnit\Framework\TestCase;
 
-class ProfilerTest extends \PHPUnit_Framework_TestCase
+class ProfilerTest extends TestCase
 {
     /**
      * Teardown the test environment.

@@ -26,10 +26,8 @@
         "illuminate/container": "~5.5.0",
         "illuminate/database": "~5.5.0",
         "mockery/mockery": "~0.9.4",
-        "monolog/monolog": "~1.11"
-    },
-    "suggest": {
-        "laravel/framework": "Allow using orchestra/debug as added feature for Laravel (~5.4)."
+        "monolog/monolog": "~1.11",
+        "phpunit/phpunit": "~5.7"
     },
     "extra": {
         "branch-alias": {

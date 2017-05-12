@@ -1,9 +1,10 @@
 <?php namespace Orchestra\Debug\TestCase\Traits;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Orchestra\Debug\Traits\TimerProfileTrait;
 
-class TimerProfileTraitTest extends \PHPUnit_Framework_TestCase
+class TimerProfileTraitTest extends TestCase
 {
     use TimerProfileTrait;
 
