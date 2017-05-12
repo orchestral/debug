@@ -17,7 +17,7 @@ Debug Component is commandline profiling package for Laravel, It was based from 
 * [Configuration](#configuration)
 * [Usage](#usage)
 * [Resources](#resources)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/debug/changes#v3-4)
+* [Change Log](https://github.com/orchestral/debug/releases)
 
 ## Version Compatibility
 

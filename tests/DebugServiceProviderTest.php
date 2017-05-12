@@ -1,11 +1,12 @@
 <?php namespace Orchestra\Debug\TestCase;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Orchestra\Debug\DebugServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;
 
-class DebugServiceProviderTest extends \PHPUnit_Framework_TestCase
+class DebugServiceProviderTest extends TestCase
 {
     /**
      * Application instance.
