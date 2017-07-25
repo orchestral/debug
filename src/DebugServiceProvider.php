@@ -28,8 +28,6 @@ class DebugServiceProvider extends ProfileServiceProvider
         $this->registerSocket();
 
         $this->registerDebugger();
-
-        $this->registerEvents();
     }
 
     /**

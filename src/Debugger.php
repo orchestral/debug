@@ -31,7 +31,7 @@ class Debugger
     public function __construct(ProfilerContract $profiler, SocketBroadcast $broadcaster)
     {
         $this->profiler = $profiler;
-        $this->broadcaster = $broadcaster;
+        $this->broadcaster = $broadcaster->setMonolog($profiler->getMonolog());
     }
 
     /**
