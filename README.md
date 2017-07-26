@@ -17,15 +17,13 @@ Debug Component is commandline profiling package for Laravel, It was based from 
 * [Configuration](#configuration)
 * [Usage](#usage)
 * [Resources](#resources)
-* [Change Log](https://github.com/orchestral/debug/releases)
+* [Changelog](https://github.com/orchestral/debug/releases)
 
 ## Version Compatibility
 
 Laravel    | Debug
 :----------|:----------
- 4.0.x     | 2.0.x
- 4.1.x     | 2.1.x
- 4.2.x     | 2.2.x
+ 4.x.x     | 2.x.x
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
  5.2.x     | 3.2.x
@@ -39,9 +37,9 @@ To install through composer, simply put the following in your `composer.json` fi
 
 ```json
 {
-	"require": {
-		"orchestra/debug": "~3.0"
-	}
+    "require": {
+        "orchestra/debug": "~3.0"
+    }
 }
 ```
 
@@ -60,10 +58,11 @@ Add following service providers in `config/app.php`.
 ```php
 'providers' => [
 
-	// ...
+    // ...
 
-	Orchestra\Debug\DebugServiceProvider::class,
-	Orchestra\Debug\CommandServiceProvider::class,
+    Orchestra\Debug\DebugServiceProvider::class,
+    Orchestra\Debug\CommandServiceProvider::class,
+
 ],
 ```
 
@@ -76,7 +75,8 @@ You could also create an alias for `Orchestra\Support\Facades\Profiler` in `conf
 
     // ...
 
-	'Profiler' => Orchestra\Support\Facades\Profiler::class,
+    'Profiler' => Orchestra\Support\Facades\Profiler::class,
+
 ],
 ```
 
@@ -87,7 +87,7 @@ You could also create an alias for `Orchestra\Support\Facades\Profiler` in `conf
 To enable the profiler, all you need to do is:
 
 ```php
-Profiler::attachDebugger();
+Profiler::start();
 ```
 
 > This normally would goes in your development environment such as `local` environment, in the case `app/Providers/AppServiceProvider.php` would be an ideal location to include the command.
@@ -96,10 +96,5 @@ Profiler::attachDebugger();
 
 To view the profiler, run the following command in your terminal:
 
-```bash
-php artisan debug
-```
+    php artisan debug
 
-## Resources
-
-* [Documentation](http://orchestraplatform.com/docs/latest/components/debug)
