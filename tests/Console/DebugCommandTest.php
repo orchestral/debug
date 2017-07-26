@@ -1,23 +1,25 @@
-<?php namespace Orchestra\Debug\Console\TestCase;
+<?php
+
+namespace Orchestra\Debug\TestCase\Console;
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Orchestra\Debug\Console\DebugCommand;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
-class DebugCommandTest extends TestCase
+class DebugCommandTest extends PHPUnitTestCase
 {
     /**
      * Application instance.
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app;
+    private $app;
 
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->app = new Container();
     }
@@ -25,19 +27,15 @@ class DebugCommandTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->app);
 
         m::close();
     }
 
-    /**
-     * Test Orchestra\Debug\Console\DebugCommand::fire() method.
-     *
-     * @test
-     */
-    public function testFireMethod()
+    /** @test */
+    public function command_can_be_handled()
     {
         $input = m::mock('\Symfony\Component\Console\Input\InputInterface');
         $output = m::mock('\Symfony\Component\Console\Output\OutputInterface');

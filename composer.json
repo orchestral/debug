@@ -28,6 +28,7 @@
         "illuminate/database": "~5.5.0",
         "mockery/mockery": "~0.9.4",
         "monolog/monolog": "~1.11",
+        "orchestra/testbench": "~3.5.0",
         "phpunit/phpunit": "~6.0"
     },
     "extra": {

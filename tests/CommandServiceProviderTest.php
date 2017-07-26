@@ -1,23 +1,26 @@
-<?php namespace Orchestra\Debug\TestCase;
+<?php
+
+namespace Orchestra\Debug\TestCase;
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
+use Orchestra\Debug\Console\DebugCommand;
 use Orchestra\Debug\CommandServiceProvider;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
-class CommandServiceProviderTest extends TestCase
+class CommandServiceProviderTest extends PHPUnitTestCase
 {
     /**
      * Application instance.
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app;
+    private $app;
 
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->app = new Container();
     }
@@ -25,34 +28,29 @@ class CommandServiceProviderTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->app);
+
         m::close();
     }
 
-    /**
-     * Test Orchestra\Debug\CommandServiceProvider::register() method.
-     *
-     * @test
-     */
-    public function testRegisterMethod()
+    /** @test */
+    function service_can_be_registered()
     {
-        $app = $this->app;
+        $stub = (new CommandServiceProvider($this->app))->register();
 
-        $stub = new CommandServiceProvider($app);
-
-        $stub->register();
-
-        $this->assertInstanceOf('\Orchestra\Debug\Console\DebugCommand', $app['command.debug']);
+        $this->assertInstanceOf(DebugCommand::class, $this->app['command.debug']);
     }
 
-    /**
-     * Test Orchestra\Debug\CommandServiceProvider::provides() method.
-     *
-     * @test
-     */
-    public function testProvidesMethod()
+    /** @test */
+    function service_is_deferred()
+    {
+        $this->assertTrue((new CommandServiceProvider($this->app))->isDeferred());
+    }
+
+    /** @test */
+    function service_contains_proper_provides_for_deferred()
     {
         $stub = new CommandServiceProvider($this->app);
 
