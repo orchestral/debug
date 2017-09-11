@@ -2,6 +2,7 @@
 
 namespace Orchestra\Debug;
 
+use Monolog\Handler\SocketHandler;
 use Laravie\Profiler\Traits\Logger;
 
 class SocketBroadcast
