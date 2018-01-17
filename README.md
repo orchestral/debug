@@ -3,12 +3,11 @@ Artisan Debug Profiler for Laravel
 
 Debug Component is commandline profiling package for Laravel, It was based from Laravel 4.1 commandline profiling tool which was merged with `php artisan tail`.
 
-[![Latest Stable Version](https://img.shields.io/github/release/orchestral/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
-[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
-[![MIT License](https://img.shields.io/packagist/l/orchestra/debug.svg?style=flat-square)](https://packagist.org/packages/orchestra/debug)
-[![Build Status](https://img.shields.io/travis/orchestral/debug/master.svg?style=flat-square)](https://travis-ci.org/orchestral/debug)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/debug/master.svg?style=flat-square)](https://coveralls.io/r/orchestral/debug?branch=master)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/debug/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/debug/)
+[![Build Status](https://travis-ci.org/orchestral/debug.svg?branch=master)](https://travis-ci.org/orchestral/debug)
+[![Latest Stable Version](https://poser.pugx.org/orchestra/debug/v/stable)](https://packagist.org/packages/orchestra/debug)
+[![Total Downloads](https://poser.pugx.org/orchestra/debug/downloads)](https://packagist.org/packages/orchestra/debug)
+[![Latest Unstable Version](https://poser.pugx.org/orchestra/debug/v/unstable)](https://packagist.org/packages/orchestra/debug)
+[![License](https://poser.pugx.org/orchestra/debug/license)](https://packagist.org/packages/orchestra/debug)
 
 ## Table of Content
 
@@ -30,6 +29,7 @@ Laravel    | Debug
  5.3.x     | 3.3.x
  5.4.x     | 3.4.x
  5.5.x     | 3.5.x
+ 5.6.x     | 3.6.x@dev
 
 ## Installation
 
