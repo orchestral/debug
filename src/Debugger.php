@@ -39,7 +39,7 @@ class Debugger
      *
      * @return $this
      */
-    public function start()
+    public function start(): self
     {
         if ($this->broadcaster->connect()) {
             $this->registerEvents();
@@ -53,7 +53,7 @@ class Debugger
      *
      * @return void
      */
-    protected function registerEvents()
+    protected function registerEvents(): void
     {
         $this->profiler->extend(new DatabaseQuery())
             ->extend(new Request());
@@ -66,7 +66,7 @@ class Debugger
      * @param  array   $parameters
      * @return mixed
      */
-    public function __call($method, array $parameters)
+    public function __call(string $method, array $parameters)
     {
         $this->profiler->{$method}(...$parameters);
     }

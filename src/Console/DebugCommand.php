@@ -67,9 +67,8 @@ class DebugCommand extends Command
      *
      * @return void
      */
-    protected function configureSocket()
+    protected function configureSocket(): void
     {
-
         $socket = new SocketServer('127.0.0.1:8337', $this->loop);
         $output = $this->output;
 
@@ -89,7 +88,7 @@ class DebugCommand extends Command
      *
      * @return void
      */
-    protected function onIncoming(SocketServer $socket, Closure $callback)
+    protected function onIncoming(SocketServer $socket, Closure $callback): void
     {
         $socket->on('connection', function ($conn) use ($callback) {
             $conn->on('data', $callback);

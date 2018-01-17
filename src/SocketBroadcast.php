@@ -16,12 +16,13 @@ class SocketBroadcast
      */
     public function connect()
     {
-        $monolog = $this->getMonolog();
+        $logger = $this->getLogger();
+        $monolog = $logger->driver();
 
         $monolog->pushHandler(new SocketHandler('tcp://127.0.0.1:8337'));
 
         try {
-            $monolog->addInfo('Debug client connecting...');
+            $logger->info('Debug client connecting...');
         } catch (Exception $e) {
             $monolog->popHandler();
 

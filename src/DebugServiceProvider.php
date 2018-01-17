@@ -35,7 +35,7 @@ class DebugServiceProvider extends ProfileServiceProvider
      *
      * @return void
      */
-    protected function registerSocket()
+    protected function registerSocket(): void
     {
         $this->app->singleton('orchestra.debug.socket', function ($app) {
             return new SocketBroadcast($app->make('events'));
@@ -47,7 +47,7 @@ class DebugServiceProvider extends ProfileServiceProvider
      *
      * @return void
      */
-    protected function registerDebugger()
+    protected function registerDebugger(): void
     {
         $this->app->singleton('orchestra.debug', function ($app) {
             return new Debugger($app->make(ProfilerContract::class), $app->make('orchestra.debug.socket'));
