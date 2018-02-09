@@ -29,7 +29,7 @@
         "mockery/mockery": "~1.0",
         "monolog/monolog": "~1.11",
         "orchestra/testbench": "~3.6.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~7.0"
     },
     "extra": {
         "branch-alias": {
