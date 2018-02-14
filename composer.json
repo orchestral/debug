@@ -18,22 +18,22 @@
     },
     "require": {
         "php": ">=7.1",
-        "illuminate/console": "~5.6.0",
+        "illuminate/console": "~5.7.0",
         "laravie/profiler": "^2.0",
-        "orchestra/support": "~3.6.0",
+        "orchestra/support": "~3.7.0",
         "react/socket": "0.5.*"
     },
     "require-dev": {
-        "illuminate/container": "~5.6.0",
-        "illuminate/database": "~5.6.0",
+        "illuminate/container": "~5.7.0",
+        "illuminate/database": "~5.7.0",
         "mockery/mockery": "~1.0",
         "monolog/monolog": "~1.11",
-        "orchestra/testbench": "~3.6.0",
+        "orchestra/testbench": "~3.7.0",
         "phpunit/phpunit": "~7.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.6-dev"
+            "dev-master": "3.7-dev"
         }
     },
     "config": {
