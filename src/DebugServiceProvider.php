@@ -2,8 +2,6 @@
 
 namespace Orchestra\Debug;
 
-use Laravie\Profiler\Events\Request;
-use Laravie\Profiler\Events\DatabaseQuery;
 use Laravie\Profiler\ProfileServiceProvider;
 use Laravie\Profiler\Contracts\Profiler as ProfilerContract;
 

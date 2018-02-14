@@ -36,7 +36,7 @@ class CommandServiceProviderTest extends PHPUnitTestCase
     }
 
     /** @test */
-    function service_can_be_registered()
+    public function service_can_be_registered()
     {
         $stub = (new CommandServiceProvider($this->app))->register();
 
@@ -44,13 +44,13 @@ class CommandServiceProviderTest extends PHPUnitTestCase
     }
 
     /** @test */
-    function service_is_deferred()
+    public function service_is_deferred()
     {
         $this->assertTrue((new CommandServiceProvider($this->app))->isDeferred());
     }
 
     /** @test */
-    function service_contains_proper_provides_for_deferred()
+    public function service_contains_proper_provides_for_deferred()
     {
         $stub = new CommandServiceProvider($this->app);
 

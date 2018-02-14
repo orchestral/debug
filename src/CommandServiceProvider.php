@@ -3,7 +3,6 @@
 namespace Orchestra\Debug;
 
 use Illuminate\Support\ServiceProvider;
-use React\Socket\Server as SocketServer;
 use Orchestra\Debug\Console\DebugCommand;
 use React\EventLoop\Factory as LoopFactory;
 
