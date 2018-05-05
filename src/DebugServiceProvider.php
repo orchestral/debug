@@ -4,10 +4,10 @@ namespace Orchestra\Debug;
 
 use Laravie\Profiler\Events\Request;
 use Laravie\Profiler\Events\DatabaseQuery;
-use Laravie\Profiler\ProfileServiceProvider;
+use Laravie\Profiler\ProfilerServiceProvider;
 use Laravie\Profiler\Contracts\Profiler as ProfilerContract;
 
-class DebugServiceProvider extends ProfileServiceProvider
+class DebugServiceProvider extends ProfilerServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
