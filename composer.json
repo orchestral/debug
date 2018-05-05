@@ -24,12 +24,19 @@
         "react/socket": "0.5.*"
     },
     "require-dev": {
+<<<<<<< HEAD
         "illuminate/container": "~5.6.0",
         "illuminate/database": "~5.6.0",
         "mockery/mockery": "~1.0",
         "monolog/monolog": "~1.11",
         "orchestra/testbench": "~3.6.0",
         "phpunit/phpunit": "~7.0"
+=======
+        "mockery/mockery": "^1.0",
+        "monolog/monolog": "^1.11",
+        "orchestra/testbench": "~3.5.0",
+        "phpunit/phpunit": "^6.0"
+>>>>>>> 3.5
     },
     "extra": {
         "branch-alias": {
