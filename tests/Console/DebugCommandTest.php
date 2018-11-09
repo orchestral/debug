@@ -62,7 +62,9 @@ class DebugCommandTest extends PHPUnitTestCase
         $stub = new DebugCommand($loop);
         $stub->setLaravel($laravel);
 
-        $laravel->shouldReceive('call')->once()->andReturnUsing(function ($object, $parameters = []) {
+        $laravel->shouldReceive('make')->once()->andReturnUsing(function ($class) use ($input, $output) {
+            return new $class($input, $output);
+        })->shouldReceive('call')->once()->andReturnUsing(function ($object, $parameters = []) {
             return call_user_func_array($object, $parameters);
         });
 
